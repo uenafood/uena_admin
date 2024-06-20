@@ -3,7 +3,7 @@ import { DefaultAuthProvider } from 'adminjs';
 
 import { User } from '../db/entity/user.entity.js';
 
-import componentLoader from './component-loader.js';
+import { componentLoader } from './component-loader.js';
 
 const provider = new DefaultAuthProvider({
   componentLoader,
