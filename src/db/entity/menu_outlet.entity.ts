@@ -1,8 +1,19 @@
-import { Model, DataTypes, CreationOptional, InferAttributes, InferCreationAttributes } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+  NonAttribute,
+  Association,
+} from 'sequelize';
 
 import { sequelizeMenu } from '../config.js';
-import { ResourceWithOptions } from 'adminjs';
+import { ActionRequest, ResourceWithOptions } from 'adminjs';
 import { parentMenu } from '../../admin/constants.js';
+import { MenuGroup } from './menu_group.entity.js';
+import { MenuGroupOutlet } from './menu_group_outlet.entity.js';
+import { Menu } from './menu.entity.js';
 
 export class MenuOutlet extends Model<InferAttributes<MenuOutlet>, InferCreationAttributes<MenuOutlet>> {
   declare menu_outlet_id: CreationOptional<number>;
@@ -26,6 +37,12 @@ export class MenuOutlet extends Model<InferAttributes<MenuOutlet>, InferCreation
   declare deleted_at: Date | null;
   declare info: string | null;
   declare is_available: boolean | null;
+
+  declare menuGroupOutlet: NonAttribute<MenuGroupOutlet>;
+
+  declare static associations: {
+    menuGroupOutlet: Association<MenuOutlet, MenuGroupOutlet>;
+  };
 }
 
 export function setupMenuOutletTable() {
@@ -126,15 +143,57 @@ export function setupMenuOutletTable() {
   );
 }
 
-export function wiringMenuOutletTableRelations() {}
+export function wiringMenuOutletTableRelations() {
+  MenuOutlet.belongsTo(MenuGroupOutlet, {
+    foreignKey: 'menu_group_outlet_id',
+    targetKey: 'menu_group_outlet_id',
+    as: 'menuGroupOutlet',
+  });
+  MenuOutlet.belongsTo(Menu, {
+    foreignKey: 'menu_id',
+    targetKey: 'menu_id',
+    as: 'menuId',
+  });
+  // MenuOutlet.belongsToMany(MenuGroup, {
+  //   through: MenuGroupOutlet,
+  //   foreignKey: 'menu_outlet_id',
+  //   otherKey: 'menu_group_id',
+  // });
+}
 
 export const menuOutletResource: ResourceWithOptions = {
   resource: MenuOutlet,
   options: {
-    id: 'menu-outlet',
+    id: 'menu_outlet',
     parent: parentMenu,
     properties: {
-      // listProperties: [],
+      menuGroupOutlet: {
+        isVisible: true,
+        isTitle: true,
+        reference: 'menu_group_outlet_id',
+      },
+    },
+    listProperties: ['menu_id', 'menu_group_outlet_id', 'price', 'menu_name', 'position', 'is_available', 'deleted_at'],
+    editProperties: ['menu_id', 'menu_group_outlet_id', 'price', 'menu_name', 'position', 'is_available', 'deleted_at'],
+    actions: {
+      new: {
+        before: async (request: ActionRequest) => {
+          if (request.payload?.menu_group_outlet_id) {
+            const menuGroupOutletId = request.payload.menu_group_outlet_id;
+            // find menu group outlet by id
+            const menuGroupOutlet = await MenuGroupOutlet.findByPk(menuGroupOutletId);
+            console.log('menuGroupOutlet', menuGroupOutlet);
+            if (menuGroupOutlet) {
+              const menuGroup = await MenuGroup.findByPk(menuGroupOutlet.menu_group_id);
+              console.log('menuGroup', menuGroup);
+              if (menuGroup) {
+                request.payload.position = menuGroup.name;
+              }
+            }
+          }
+          return request;
+        },
+      },
     },
   },
 };

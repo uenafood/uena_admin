@@ -166,9 +166,12 @@ export const menuResource: ResourceWithOptions = {
     id: 'menu',
     parent: parentMenu,
     properties: {
+      menu_name: {
+        type: 'string',
+        isTitle: true,
+      },
       components: {
         type: 'string',
-        // transform
         components: {
           list: Components.menuTableItem,
         },

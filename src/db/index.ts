@@ -6,9 +6,9 @@ import { setupOrderTable, wiringOrderTableRelations } from './entity/order.entit
 import { setupUserTable } from './entity/user.entity.js';
 import { setupOutletTable } from './entity/outlet.entity.js';
 import { setupMenuCategoryTable } from './entity/menu_category.entity.js';
-import { setupMenuGroupTable } from './entity/menu_group.entity.js';
-import { setupMenuOutletTable } from './entity/menu_outlet.entity.js';
-import { setupMenuGroupOutletTable } from './entity/menu_group_outlet.entity.js';
+import { setupMenuGroupTable, wiringMenuGroupTableRelations } from './entity/menu_group.entity.js';
+import { setupMenuOutletTable, wiringMenuOutletTableRelations } from './entity/menu_outlet.entity.js';
+import { setupMenuGroupOutletTable, wiringMenuGroupOutletTableRelations } from './entity/menu_group_outlet.entity.js';
 import { setupMenuTable, wiringMenuTableRelations } from './entity/menu.entity.js';
 import { setupMethodPaymentTable } from './entity/method_payment.js';
 
@@ -46,6 +46,9 @@ function setupTables() {
 function wiringAllTables() {
   wiringOrderTableRelations();
   wiringMenuTableRelations();
+  wiringMenuOutletTableRelations();
+  wiringMenuGroupOutletTableRelations();
+  wiringMenuGroupTableRelations();
 }
 
 const initialize = async () => {

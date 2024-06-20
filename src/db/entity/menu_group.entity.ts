@@ -70,9 +70,13 @@ export function wiringMenuGroupTableRelations() {}
 export const menuGroupResource: ResourceWithOptions = {
   resource: MenuGroup,
   options: {
-    id: 'menu-group',
+    id: 'menu_group',
     parent: parentMenu,
     properties: {
+      name: {
+        type: 'string',
+        isTitle: true,
+      },
       // listProperties: [],
     },
   },

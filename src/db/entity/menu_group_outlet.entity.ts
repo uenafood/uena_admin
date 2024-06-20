@@ -1,7 +1,17 @@
-import { Model, DataTypes, CreationOptional, InferAttributes, InferCreationAttributes } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+  NonAttribute,
+  Association,
+} from 'sequelize';
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
 import { parentMenu } from '../../admin/constants.js';
+import { MenuGroup } from './menu_group.entity.js';
+import { MenuOutlet } from './menu_outlet.entity.js';
 
 export class MenuGroupOutlet extends Model<InferAttributes<MenuGroupOutlet>, InferCreationAttributes<MenuGroupOutlet>> {
   declare menu_group_outlet_id: CreationOptional<number>;
@@ -14,6 +24,12 @@ export class MenuGroupOutlet extends Model<InferAttributes<MenuGroupOutlet>, Inf
   declare create_by: string;
   declare modified_by: string;
   declare deleted_at: Date | null; // nullable
+
+  declare menuGroup: NonAttribute<MenuGroup>;
+
+  declare static associations: {
+    menuGroup: Association<MenuGroupOutlet, MenuGroup>;
+  };
 }
 
 export function setupMenuGroupOutletTable() {
@@ -70,15 +86,25 @@ export function setupMenuGroupOutletTable() {
   );
 }
 
-export function wiringMenuGroupOutletTableRelations() {}
+export function wiringMenuGroupOutletTableRelations() {
+  MenuGroupOutlet.belongsTo(MenuGroup, {
+    foreignKey: 'menu_group_id',
+    targetKey: 'menu_group_id',
+    as: 'menuGroup',
+  });
+}
 
 export const menuGroupOutletResource: ResourceWithOptions = {
   resource: MenuGroupOutlet,
   options: {
-    id: 'menu-group-oulet',
+    id: 'menu_group_outlet',
     parent: parentMenu,
     properties: {
-      // listProperties: [],
+      name: {
+        type: 'date',
+        isTitle: true,
+        reference: 'menu_group',
+      },
     },
   },
 };
