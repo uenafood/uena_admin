@@ -1,44 +1,100 @@
-import { Model, DataTypes, Optional } from 'sequelize';
+import { Model, DataTypes, Optional, InferAttributes, InferCreationAttributes } from 'sequelize';
 
 import { sequelizeUser } from '../config.js';
+import { RecordActionResponse, ResourceWithOptions } from 'adminjs';
+import { hashPassword } from '../../admin/utils.js';
 
-interface IUser {
-  id: number;
-  email: string;
-  password: string;
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: number;
+  declare email: string;
+  declare password: string;
 }
 
-export type AdminCreationAttributes = Optional<IUser, 'id'>;
-
-export class User extends Model<IUser, AdminCreationAttributes> {
-  id: number;
-
-  email: string;
-
-  password: string;
+export function setupUserTable() {
+  User.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize: sequelizeUser,
+      tableName: 'user',
+      modelName: 'User',
+      updatedAt: false,
+      createdAt: false,
+    },
+  );
 }
 
-User.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
+export function wiringUserTableRelations() {}
+
+export const userResource: ResourceWithOptions = {
+  resource: User,
+  options: {
+    id: 'user',
+    parent: {
+      name: 'DB Coolify STAGING',
+      icon: 'User',
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    properties: {
+      password: {
+        type: 'string',
+        isVisible: {
+          list: false,
+          edit: true,
+          filter: false,
+          show: false,
+        },
+      },
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    actions: {
+      new: {
+        before: async (request) => {
+          if (request.payload?.password) {
+            request.payload.password = await hashPassword(request.payload.password);
+          }
+          return request;
+        },
+      },
+      show: {
+        after: async (response: RecordActionResponse) => {
+          const user = await User.findByPk(response.record.params.id);
+          if (user) {
+            const { password, ...rest } = user.toJSON();
+            response.record.params = rest;
+          }
+          return response;
+        },
+      },
+      edit: {
+        before: async (request) => {
+          if (request.payload?.password) {
+            request.payload.password = await hashPassword(request.payload.password);
+          }
+          return request;
+        },
+        after: async (response: RecordActionResponse) => ({
+          ...response,
+          record: {
+            ...response.record,
+            params: {
+              ...response.record.params,
+              password: '',
+            },
+          },
+        }),
+      },
     },
   },
-  {
-    sequelize: sequelizeUser,
-    tableName: 'user',
-    modelName: 'User',
-    updatedAt: false,
-    createdAt: false,
-  },
-);
+};

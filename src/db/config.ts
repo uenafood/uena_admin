@@ -1,21 +1,44 @@
 import { Sequelize } from 'sequelize';
+import DotEnv from 'dotenv';
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: process.env.DATABASE_DIALECT as any });
+DotEnv.config();
 
-const sequelizeInventory = new Sequelize(process.env.DATABASE_URL_INVENTORY, {
-  dialect: process.env.DATABASE_DIALECT as any,
+const sequelize = new Sequelize('postgres', 'postgres', 'Kokilogy*123', {
+  host: 'staging.cxwznnuhmmdu.ap-southeast-1.rds.amazonaws.com',
+  dialect: 'postgres',
+  logging: false,
 });
 
-const sequelizeMenu = new Sequelize(process.env.DATABASE_URL_MENU, {
-  dialect: process.env.DATABASE_DIALECT as any,
+const sequelizeMenu = new Sequelize('db_menu', 'postgres', 'Kokilogy*123', {
+  host: 'staging.cxwznnuhmmdu.ap-southeast-1.rds.amazonaws.com',
+  dialect: 'postgres',
+  logging: false,
 });
 
-const sequelizeUser = new Sequelize(process.env.DATABASE_URL_USER, {
-  dialect: process.env.DATABASE_DIALECT as any,
+const sequelizeUser = new Sequelize(
+  'postgres',
+  'postgres',
+  'mQQ5SkRjYlIpkpCkZNRNcTaoluQ0YYG5EZLDPEmiQ1VHt9bC2W3sO1jS9TalN0cR',
+  {
+    host: '46.250.239.222',
+    port: Number('8989'),
+    dialect: 'postgres',
+    logging: false,
+  },
+);
+
+const sequelizeUENA = new Sequelize('db_uena', 'postgres', 'Kokilogy*123', {
+  host: 'staging.cxwznnuhmmdu.ap-southeast-1.rds.amazonaws.com',
+  // port: Number(''),
+  dialect: 'postgres',
+  logging: false,
 });
 
-const sequelizeOrder = new Sequelize(process.env.DATABASE_URL_UENA, {
-  dialect: process.env.DATABASE_DIALECT as any,
+const sequelizeOutlet = new Sequelize('db_outlet', 'postgres', 'Kokilogy*123', {
+  host: 'staging.cxwznnuhmmdu.ap-southeast-1.rds.amazonaws.com',
+  // port: Number(''),
+  dialect: 'postgres',
+  logging: false,
 });
 
-export { sequelize, sequelizeInventory, sequelizeMenu, sequelizeUser, sequelizeOrder };
+export { sequelize, sequelizeMenu, sequelizeUser, sequelizeUENA, sequelizeOutlet };
