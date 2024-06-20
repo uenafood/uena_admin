@@ -170,7 +170,7 @@ export const menuResource: ResourceWithOptions = {
         type: 'string',
         // transform
         components: {
-          list: Components.listItem,
+          list: Components.menuTableItem,
         },
       },
     },

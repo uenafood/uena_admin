@@ -3,7 +3,7 @@ import { ComponentLoader } from 'adminjs';
 const componentLoader = new ComponentLoader();
 
 const Components = {
-  listItem: componentLoader.add('ListItem', './components/ListItem'),
+  menuTableItem: componentLoader.add('MenuTableItem', './components/MenuTableItem'),
   // other custom components
 };
 
