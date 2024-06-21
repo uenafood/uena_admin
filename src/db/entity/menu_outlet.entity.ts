@@ -1,8 +1,18 @@
-import { Model, DataTypes, CreationOptional, InferAttributes, InferCreationAttributes } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+  NonAttribute,
+  Association,
+} from 'sequelize';
 
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
 import { parentMenu } from '../../admin/constants.js';
+import { MenuGroupOutlet } from './menu_group_outlet.entity.js';
+import { Menu } from './menu.entity.js';
 
 export class MenuOutlet extends Model<InferAttributes<MenuOutlet>, InferCreationAttributes<MenuOutlet>> {
   declare menu_outlet_id: CreationOptional<number>;
@@ -26,6 +36,12 @@ export class MenuOutlet extends Model<InferAttributes<MenuOutlet>, InferCreation
   declare deleted_at: Date | null;
   declare info: string | null;
   declare is_available: boolean | null;
+
+  declare menuGroupOutlet: NonAttribute<MenuGroupOutlet>;
+
+  declare static associations: {
+    menuGroupOutlet: Association<MenuOutlet, MenuGroupOutlet>;
+  };
 }
 
 export function setupMenuOutletTable() {
@@ -126,15 +142,27 @@ export function setupMenuOutletTable() {
   );
 }
 
-export function wiringMenuOutletTableRelations() {}
+export function wiringMenuOutletTableRelations() {
+  MenuOutlet.belongsTo(MenuGroupOutlet, {
+    foreignKey: 'menu_group_outlet_id',
+    targetKey: 'menu_group_outlet_id',
+    as: 'menuGroupOutlet',
+  });
+  MenuOutlet.belongsTo(Menu, {
+    foreignKey: 'menu_id',
+    targetKey: 'menu_id',
+    as: 'menuId',
+  });
+}
 
 export const menuOutletResource: ResourceWithOptions = {
   resource: MenuOutlet,
   options: {
-    id: 'menu-outlet',
+    id: 'menu_outlet',
     parent: parentMenu,
-    properties: {
-      // listProperties: [],
-    },
+
+    listProperties: ['menu_id', 'menu_group_outlet_id', 'price', 'menu_name', 'position', 'is_available', 'deleted_at'],
+    editProperties: ['menu_id', 'menu_group_outlet_id', 'price', 'menu_name', 'position', 'is_available', 'deleted_at'],
+    actions: {},
   },
 };
