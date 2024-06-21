@@ -4,7 +4,7 @@ const componentLoader = new ComponentLoader();
 
 const Components = {
   menuTableItem: componentLoader.add('MenuTableItem', './components/MenuTableItem'),
-  // other custom components
+  menuGroup: componentLoader.add('MenuGroup', './components/MenuGroupItem'),
 };
 
 export { componentLoader, Components };

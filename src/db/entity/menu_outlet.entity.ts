@@ -13,6 +13,7 @@ import { ResourceWithOptions } from 'adminjs';
 import { parentMenu } from '../../admin/constants.js';
 import { MenuGroupOutlet } from './menu_group_outlet.entity.js';
 import { Menu } from './menu.entity.js';
+import { Components } from '../../admin/component-loader.js';
 
 export class MenuOutlet extends Model<InferAttributes<MenuOutlet>, InferCreationAttributes<MenuOutlet>> {
   declare menu_outlet_id: CreationOptional<number>;
@@ -160,8 +161,28 @@ export const menuOutletResource: ResourceWithOptions = {
   options: {
     id: 'menu_outlet',
     parent: parentMenu,
-
-    listProperties: ['menu_id', 'menu_group_outlet_id', 'price', 'menu_name', 'position', 'is_available', 'deleted_at'],
+    properties: {
+      menuGroup: {
+        type: 'string',
+        /**
+         * TODO: CUSTOM COMPONENT for show menugroup
+         */
+        components: {
+          list: Components.menuGroup, // see "Writing your own Components"
+          // show: Components.MyCustomAction,
+        },
+      },
+    },
+    listProperties: [
+      'menu_id',
+      'menu_group_outlet_id',
+      'price',
+      'menu_name',
+      'position',
+      'is_available',
+      'deleted_at',
+      'menuGroup',
+    ],
     editProperties: ['menu_id', 'menu_group_outlet_id', 'price', 'menu_name', 'position', 'is_available', 'deleted_at'],
     actions: {},
   },
