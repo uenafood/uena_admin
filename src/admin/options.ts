@@ -1,33 +1,70 @@
-import { AdminJSOptions, RecordActionResponse } from 'adminjs';
+import { AdminJSOptions } from 'adminjs';
 
-import { sequelizeMenu, sequelizeOutlet, sequelizeUENA, sequelizeUser } from '../db/config.js';
-import { menuResource } from '../db/entity/menu.entity.js';
-import { userResource } from '../db/entity/user.entity.js';
+import { sequelizeMenu, sequelizeOrder, sequelizeOutlet, sequelizeUENA, sequelizeUser } from '../db/config.js';
+import { userTableResource } from '../db/entity/user.entity.js';
 
 import { componentLoader } from './component-loader.js';
-import { outletResource } from '../db/entity/outlet.entity.js';
-import { menuGroupOutletResource } from '../db/entity/menu_group_outlet.entity.js';
-import { menuCategoryResource } from '../db/entity/menu_category.entity.js';
-import { menuOutletResource } from '../db/entity/menu_outlet.entity.js';
-import { orderResource } from '../db/entity/order.entity.js';
-import { paymentMethodResource } from '../db/entity/method_payment.js';
-import { menuGroupResource } from '../db/entity/menu_group.entity.js';
+import { orderTableResource } from '../db/entity/order.entity.js';
+import { outletTableResource } from '../db/entity/outlet-prod.entity.js';
+import { paymentMethodTableResource } from '../db/entity/payment_method.entity.js';
+import { deliveryMethodTableResource } from '../db/entity/delivery_method.entity.js';
+import { customerTableResource } from '../db/entity/customer.entity.js';
+import { voidReasonTableResource } from '../db/entity/void_reason.entity.js';
+import { customerAddressTableResource } from '../db/entity/customer_address.entity.js';
+import { driverTableResource } from '../db/entity/driver.entity.js';
 
 const options: AdminJSOptions = {
   componentLoader,
   rootPath: '/admin',
   resources: [
-    menuResource,
-    userResource,
-    outletResource,
-    menuOutletResource,
-    menuGroupOutletResource,
-    menuCategoryResource,
-    orderResource,
-    paymentMethodResource,
-    menuGroupResource,
+    orderTableResource,
+    userTableResource,
+    outletTableResource,
+    paymentMethodTableResource,
+    deliveryMethodTableResource,
+    customerTableResource,
+    customerAddressTableResource,
+    voidReasonTableResource,
+    driverTableResource,
   ],
-  databases: [sequelizeMenu, sequelizeUser, sequelizeUENA, sequelizeOutlet],
+  // locale: {
+  //   language: 'en',
+  //   translations: {
+  //     resources: {
+  //       orderTableResource: {
+  //         properties: {
+  //           customer_name_platform: 'Customer',
+  //         },
+  //       },
+  //       Order: {
+  //         properties: {
+  //           customer_name_platform: 'Customer',
+  //         },
+  //       },
+  //       order: {
+  //         properties: {
+  //           customer_name_platform: 'Customer',
+  //         },
+  //       },
+  //       orderTable: {
+  //         properties: {
+  //           customer_name_platform: 'Customer',
+  //         },
+  //       },
+  //       OrderTable: {
+  //         properties: {
+  //           customer_name_platform: 'Customer',
+  //         },
+  //       },
+  //       order_new: {
+  //         properties: {
+  //           customer_name_platform: 'Customer',
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
+  databases: [sequelizeOrder, sequelizeUser, sequelizeOutlet, sequelizeUENA, sequelizeMenu],
 };
 
 export default options;

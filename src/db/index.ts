@@ -2,15 +2,21 @@ import { Database, Resource } from '@adminjs/sequelize';
 import AdminJS from 'adminjs';
 
 import { sequelize } from './config.js';
-import { setupOrderTable, wiringOrderTableRelations } from './entity/order.entity.js';
 import { setupUserTable } from './entity/user.entity.js';
-import { setupOutletTable } from './entity/outlet.entity.js';
+import { setupOutletTable, wiringOutletTableRelations } from './entity/outlet-prod.entity.js';
 import { setupMenuCategoryTable } from './entity/menu_category.entity.js';
 import { setupMenuGroupTable, wiringMenuGroupTableRelations } from './entity/menu_group.entity.js';
 import { setupMenuOutletTable, wiringMenuOutletTableRelations } from './entity/menu_outlet.entity.js';
 import { setupMenuGroupOutletTable, wiringMenuGroupOutletTableRelations } from './entity/menu_group_outlet.entity.js';
 import { setupMenuTable, wiringMenuTableRelations } from './entity/menu.entity.js';
-import { setupMethodPaymentTable } from './entity/method_payment.js';
+import { setupPaymentMethod } from './entity/payment_method.entity.js';
+// import { setupOrderProdTable, wiringOrderProdTableRelations } from './entity/order-prod.entity';
+import { setupOrderTable, wiringOrderTableRelations } from './entity/order.entity.js';
+import { setupDeliveryMethodTable } from './entity/delivery_method.entity.js';
+import { setupCustomerTable } from './entity/customer.entity.js';
+import { setupVoidReasonTable } from './entity/void_reason.entity.js';
+import { setupCustomerAddressTable } from './entity/customer_address.entity.js';
+import { setupDriverTable } from './entity/driver.entity.js';
 
 AdminJS.registerAdapter({
   Database,
@@ -22,33 +28,23 @@ AdminJS.registerAdapter({
  */
 function setupTables() {
   setupOrderTable();
-  setupMethodPaymentTable();
+  setupPaymentMethod();
   setupUserTable();
+  setupDeliveryMethodTable();
+  setupCustomerTable();
+  setupVoidReasonTable();
+  setupCustomerAddressTable();
+  setupDriverTable();
 
-  /**
-   * OUTLET
-   */
   setupOutletTable();
-
-  /**
-   * MENU
-   */
-  setupMenuOutletTable();
-  setupMenuTable();
-  setupMenuCategoryTable();
-  setupMenuGroupTable();
-  setupMenuGroupOutletTable();
 }
 
 /**
  * TODO: Wiring all tables
  */
 function wiringAllTables() {
+  wiringOutletTableRelations();
   wiringOrderTableRelations();
-  wiringMenuTableRelations();
-  wiringMenuOutletTableRelations();
-  wiringMenuGroupOutletTableRelations();
-  wiringMenuGroupTableRelations();
 }
 
 const initialize = async () => {

@@ -1,109 +1,66 @@
-import {
-  Model,
-  DataTypes,
-  CreationOptional,
-  NonAttribute,
-  Association,
-  InferAttributes,
-  InferCreationAttributes,
-} from 'sequelize';
-
+import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import { sequelizeUENA } from '../config.js';
+import { ActionRequest, ListActionResponse, ResourceWithOptions } from 'adminjs';
+import { OutletTable } from './outlet-prod.entity.js';
+import { PaymentMethodTable } from './payment_method.entity.js';
+import { DeliveryMethodTable } from './delivery_method.entity.js';
+import { CustomerTable } from './customer.entity.js';
+import { VoidReasonTable } from './void_reason.entity.js';
+import { CustomerAddressTable } from './customer_address.entity.js';
+import { DriverTable } from './driver.entity.js';
+import { Components } from '../../admin/component-loader.js';
 
-import { PaymentMethod } from './method_payment.js';
-import { ResourceWithOptions } from 'adminjs';
-
-export class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
+/**
+ * BASED ON db_order.order_new
+ */
+export class OrderTable extends Model<InferAttributes<OrderTable>, InferCreationAttributes<OrderTable>> {
   declare id: CreationOptional<number>;
-
   declare order_date: Date;
-
   declare ref_code: string;
-
   declare delivery_method: number;
-
   declare payment_method: number;
-
   declare customer_id: number;
-
   declare customer_address_id: number;
-
   declare is_already_paid: boolean;
-
   declare outlet_id: number;
-
   declare outlet_group: string;
-
   declare is_source_app: boolean;
-
   declare total_payment: number;
-
   declare sub_total: number;
-
   declare point_used: number;
-
   declare voucher_discount: number;
-
   declare voucher_code: string;
-
   declare delivery_fee: number;
-
   declare pb_fee: number;
-
   declare order_notes: string;
-
   declare nps_score: number;
-
   declare nps_feedback: string;
-
   declare is_big_order: boolean;
-
   declare courier_code: string;
-
   declare finish_cooking_date: Date;
-
   declare received_by_customer_date: Date;
-
   declare is_void: boolean;
-
   declare void_category_id: number;
-
   declare void_reason: string;
-
   declare app_status: string;
-
   declare driver_id: string;
-
   declare order_id: string;
-
   declare outlet_alias: string;
-
   declare platform_id: string;
-
   declare customer_name_platform: string;
-
   declare platform_fee: number;
-
   declare is_received_nps: boolean;
-
   declare order_date_utc_7: Date;
-
-  declare paymentMethod?: NonAttribute<PaymentMethod>;
-
-  declare static associations: {
-    paymentMethod: Association<Order, PaymentMethod>;
-  };
 }
 
 export function setupOrderTable() {
-  Order.init(
+  OrderTable.init(
     {
       id: {
         type: DataTypes.BIGINT,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
-        autoIncrementIdentity: true,
       },
       order_date: {
         type: DataTypes.DATE,
@@ -111,6 +68,7 @@ export function setupOrderTable() {
       },
       ref_code: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       delivery_method: {
         type: DataTypes.INTEGER,
@@ -122,11 +80,12 @@ export function setupOrderTable() {
       },
       customer_id: {
         type: DataTypes.BIGINT,
+        defaultValue: 1,
         allowNull: false,
-        defaultValue: 38,
       },
       customer_address_id: {
         type: DataTypes.BIGINT,
+        allowNull: true,
       },
       is_already_paid: {
         type: DataTypes.BOOLEAN,
@@ -138,11 +97,12 @@ export function setupOrderTable() {
       },
       outlet_group: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       is_source_app: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
         defaultValue: false,
+        allowNull: false,
       },
       total_payment: {
         type: DataTypes.DECIMAL,
@@ -155,17 +115,21 @@ export function setupOrderTable() {
       point_used: {
         type: DataTypes.DECIMAL,
         defaultValue: 0,
+        allowNull: true,
       },
       voucher_discount: {
         type: DataTypes.DECIMAL,
         defaultValue: 0,
+        allowNull: true,
       },
       voucher_code: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       delivery_fee: {
         type: DataTypes.DECIMAL,
         defaultValue: 0,
+        allowNull: true,
       },
       pb_fee: {
         type: DataTypes.DECIMAL,
@@ -173,43 +137,53 @@ export function setupOrderTable() {
       },
       order_notes: {
         type: DataTypes.TEXT,
+        allowNull: true,
       },
       nps_score: {
         type: DataTypes.INTEGER,
+        allowNull: true,
       },
       nps_feedback: {
         type: DataTypes.TEXT,
+        allowNull: true,
       },
       is_big_order: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
         defaultValue: false,
+        allowNull: false,
       },
       courier_code: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       finish_cooking_date: {
         type: DataTypes.DATE,
+        allowNull: true,
       },
       received_by_customer_date: {
         type: DataTypes.DATE,
+        allowNull: true,
       },
       is_void: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
         defaultValue: false,
+        allowNull: false,
       },
       void_category_id: {
         type: DataTypes.INTEGER,
+        allowNull: true,
       },
       void_reason: {
         type: DataTypes.TEXT,
+        allowNull: true,
       },
       app_status: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       driver_id: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       order_id: {
         type: DataTypes.STRING,
@@ -217,68 +191,149 @@ export function setupOrderTable() {
       },
       outlet_alias: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       platform_id: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       customer_name_platform: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       platform_fee: {
         type: DataTypes.DECIMAL,
         defaultValue: 0,
+        allowNull: true,
       },
       is_received_nps: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
+        allowNull: true,
       },
       order_date_utc_7: {
         type: DataTypes.DATE,
+        allowNull: true,
       },
     },
     {
       sequelize: sequelizeUENA,
       modelName: 'Order',
-      tableName: 'order',
+      tableName: 'order_new',
       timestamps: false,
-      createdAt: false,
-      updatedAt: false,
     },
   );
 }
 
 export function wiringOrderTableRelations() {
-  Order.belongsTo(PaymentMethod, {
+  OrderTable.belongsTo(OutletTable, {
+    foreignKey: 'outlet_id',
+    targetKey: 'id',
+    as: 'outlet',
+  });
+  OrderTable.belongsTo(PaymentMethodTable, {
     foreignKey: 'payment_method',
     targetKey: 'id',
-    as: 'paymentMethod',
+    as: 'payment',
+  });
+  OrderTable.belongsTo(DeliveryMethodTable, {
+    foreignKey: 'delivery_method',
+    targetKey: 'id',
+    as: 'delivery',
+  });
+  OrderTable.belongsTo(CustomerTable, {
+    foreignKey: 'customer_id',
+    targetKey: 'customer_id',
+    as: 'customer',
+  });
+  OrderTable.belongsTo(VoidReasonTable, {
+    foreignKey: 'void_category_id',
+    targetKey: 'id',
+    as: 'voidReason',
+  });
+  OrderTable.belongsTo(CustomerAddressTable, {
+    foreignKey: 'customer_address_id',
+    targetKey: 'customer_address_id',
+    as: 'customerAddress',
+  });
+  OrderTable.belongsTo(DriverTable, {
+    foreignKey: 'driver_id',
+    targetKey: 'driver_id',
+    as: 'driver',
   });
 }
 
-export const orderResource: ResourceWithOptions = {
-  resource: Order,
+export const orderTableResource: ResourceWithOptions = {
+  resource: OrderTable,
   options: {
-    id: 'order',
+    id: 'order_new',
     parent: 'Order',
     properties: {
-      id: {
-        isVisible: true,
-        isId: true,
+      phone: {
+        type: 'string',
+        components: {
+          list: Components.menuGroup,
+        },
       },
-      paymentMethod: {
-        isVisible: true,
-        isTitle: true,
-        reference: `payment_method`,
+    },
+    sort: {
+      sortBy: 'order_date',
+      direction: 'desc',
+    },
+
+    // disable create, edit, delete
+    actions: {
+      /**
+       * TODO: search by phone
+       */
+      list: {
+        // customer phone
+        after: async (response: ListActionResponse) => {
+          response.records.forEach(async (record, index) => {
+            record.params.phone = record.populated?.customer_id?.params.phone_number;
+          });
+          return response;
+        },
+      },
+      search: {
+        // handle search phone
+        before: async (request: ActionRequest) => {
+          request.query = {};
+          return request;
+        },
+      },
+      new: {
+        isAccessible: false,
+      },
+      edit: {
+        isAccessible: false,
+      },
+      delete: {
+        isAccessible: false,
       },
     },
     listProperties: [
       'id',
+      'order_date',
+      'delivery_method',
       'payment_method',
+      'outlet_id',
+      'customer_name_platform',
+      'order_id',
+      'app_status',
+      'is_void',
+      'phone',
+    ],
+    filterProperties: [
+      'id',
       'order_id',
       'order_date',
-      'customer_name_platform',
+      'is_void',
+      'delivery_method',
+      'payment_method',
       'outlet_id',
-      'platform_id',
+      'customer_name_platform',
+      'phone',
     ],
   },
 };
