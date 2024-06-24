@@ -21,7 +21,7 @@ import { menuGroupOutletResource } from '../db/entity/menu_group_outlet.entity.j
 
 const options: AdminJSOptions = {
   componentLoader,
-  rootPath: '/admin',
+  rootPath: '/',
   resources: [
     orderTableResource,
     userTableResource,
