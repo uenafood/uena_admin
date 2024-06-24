@@ -6,33 +6,33 @@ DotEnv.config();
 /**
  * PRODUCTION !!!!!!!!!!!!!
  */
-const sequelize = new Sequelize('postgres', 'postgres', 'Kokilogy*123', {
-  host: 'database-1.cxwznnuhmmdu.ap-southeast-1.rds.amazonaws.com',
+const sequelize = new Sequelize('postgres', 'postgres', process.env.DATABASE_PASSWORD, {
+  host: process.env.DATABASE_HOST,
   dialect: 'postgres',
   logging: false,
 });
 
-const sequelizeMenu = new Sequelize('db_menu', 'postgres', 'Kokilogy*123', {
-  host: 'database-1.cxwznnuhmmdu.ap-southeast-1.rds.amazonaws.com',
+const sequelizeMenu = new Sequelize('db_menu', 'postgres', process.env.DATABASE_PASSWORD, {
+  host: process.env.DATABASE_HOST,
   dialect: 'postgres',
   logging: false,
 });
 
-const sequelizeUENA = new Sequelize('db_uena', 'postgres', 'Kokilogy*123', {
-  host: 'database-1.cxwznnuhmmdu.ap-southeast-1.rds.amazonaws.com',
+const sequelizeUENA = new Sequelize('db_uena', 'postgres', process.env.DATABASE_PASSWORD, {
+  host: process.env.DATABASE_HOST,
   // port: Number(''),
   dialect: 'postgres',
   logging: false,
 });
 
-const sequelizeOrder = new Sequelize('db_order', 'postgres', 'Kokilogy*123', {
-  host: 'database-1.cxwznnuhmmdu.ap-southeast-1.rds.amazonaws.com',
+const sequelizeOrder = new Sequelize('db_order', 'postgres', process.env.DATABASE_PASSWORD, {
+  host: process.env.DATABASE_HOST,
   dialect: 'postgres',
   logging: false,
 });
 
-const sequelizeOutlet = new Sequelize('db_outlet', 'postgres', 'Kokilogy*123', {
-  host: 'database-1.cxwznnuhmmdu.ap-southeast-1.rds.amazonaws.com',
+const sequelizeOutlet = new Sequelize('db_outlet', 'postgres', process.env.DATABASE_PASSWORD, {
+  host: process.env.DATABASE_HOST,
   // port: Number(''),
   dialect: 'postgres',
   logging: false,
