@@ -21,7 +21,7 @@ import { MenuToOrderTable } from './menu_to_order.entity.js';
 import { MenuTable } from './menu.entity.js';
 
 /**
- * BASED ON db_uena.order_new
+ * BASED ON db_uena.order
  */
 export class OrderTable extends Model<InferAttributes<OrderTable>, InferCreationAttributes<OrderTable>> {
   declare id: CreationOptional<number>;
@@ -240,7 +240,7 @@ export function setupOrderTable() {
     {
       sequelize: sequelizeUENA,
       modelName: 'Order',
-      tableName: 'order_new',
+      tableName: 'order',
       timestamps: false,
     },
   );
@@ -292,7 +292,7 @@ export function wiringOrderTableRelations() {
 export const orderTableResource: ResourceWithOptions = {
   resource: OrderTable,
   options: {
-    id: 'order_new',
+    id: 'order',
     parent: 'Order',
     properties: {
       order_id: {
