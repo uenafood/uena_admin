@@ -16,7 +16,7 @@ import { setupCustomerTable } from './entity/customer.entity.js';
 import { setupVoidReasonTable } from './entity/void_reason.entity.js';
 import { setupCustomerAddressTable } from './entity/customer_address.entity.js';
 import { setupDriverTable } from './entity/driver.entity.js';
-import { setupMenuToOrderTable } from './entity/menu_to_order.entity.js';
+import { setupMenuToOrderTable, wiringMenuToOrderTableRelations } from './entity/menu_to_order.entity.js';
 
 AdminJS.registerAdapter({
   Database,
@@ -53,6 +53,7 @@ function wiringAllTables() {
   wiringMenuTableRelations();
   wiringMenuOutletTableRelations();
   wiringMenuGroupOutletTableRelations();
+  wiringMenuToOrderTableRelations();
 }
 
 const initialize = async () => {

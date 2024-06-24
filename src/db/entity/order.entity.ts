@@ -1,4 +1,12 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+  Association,
+  NonAttribute,
+} from 'sequelize';
 import { sequelizeUENA } from '../config.js';
 import { ActionRequest, ActionResponse, ListActionResponse, RecordActionResponse, ResourceWithOptions } from 'adminjs';
 import { OutletTable } from './outlet-prod.entity.js';
@@ -10,9 +18,10 @@ import { CustomerAddressTable } from './customer_address.entity.js';
 import { DriverTable } from './driver.entity.js';
 import { Components } from '../../admin/component-loader.js';
 import { MenuToOrderTable } from './menu_to_order.entity.js';
+import { MenuTable } from './menu.entity.js';
 
 /**
- * BASED ON db_order.order_new
+ * BASED ON db_uena.order_new
  */
 export class OrderTable extends Model<InferAttributes<OrderTable>, InferCreationAttributes<OrderTable>> {
   declare id: CreationOptional<number>;
@@ -52,6 +61,13 @@ export class OrderTable extends Model<InferAttributes<OrderTable>, InferCreation
   declare platform_fee: number;
   declare is_received_nps: boolean;
   declare order_date_utc_7: Date;
+
+  declare menu?: NonAttribute<MenuTable>;
+  // declare order
+
+  declare static associations: {
+    menu: Association<CustomerTable>;
+  };
 }
 
 export function setupOrderTable() {
@@ -83,6 +99,10 @@ export function setupOrderTable() {
         type: DataTypes.BIGINT,
         defaultValue: 1,
         allowNull: false,
+        references: {
+          model: 'customer',
+          key: 'customer_id',
+        },
       },
       customer_address_id: {
         type: DataTypes.BIGINT,
@@ -275,10 +295,26 @@ export const orderTableResource: ResourceWithOptions = {
     id: 'order_new',
     parent: 'Order',
     properties: {
+      order_id: {
+        type: 'string',
+        isTitle: true,
+      },
       phone: {
         type: 'string',
+        // components: {
+        //   list: Components.phone,
+        // },
+      },
+      is_void: {
+        type: 'boolean',
         components: {
-          list: Components.menuGroup,
+          list: Components.Void,
+        },
+      },
+      menuToOrder: {
+        type: 'string',
+        components: {
+          list: Components.menuToOrder,
         },
       },
     },
@@ -290,11 +326,20 @@ export const orderTableResource: ResourceWithOptions = {
     // disable create, edit, delete
     actions: {
       list: {
-        // customer phone
         after: async (response: ListActionResponse) => {
-          response.records.forEach(async (record, index) => {
+          const promises = response.records.map(async (record, index) => {
+            const menuResult = await MenuToOrderTable.findAll({
+              where: {
+                order_id: record.params.id,
+              },
+            });
+            record.params.menuToOrder = '';
+            menuResult.forEach((item) => {
+              record.params.menuToOrder += item.dataValues.menu_name + ', ';
+            });
             record.params.phone = record.populated?.customer_id?.params.phone_number;
           });
+          await Promise.all(promises);
           return response;
         },
       },
@@ -306,7 +351,15 @@ export const orderTableResource: ResourceWithOptions = {
       },
       show: {
         after: async (response: RecordActionResponse) => {
+          const result = await MenuToOrderTable.findAll({
+            where: {
+              order_id: response?.record?.params?.id,
+            },
+          });
           response.record.params.phone = response.record.populated?.customer_id?.params.phone_number;
+          result.forEach((item) => {
+            response.record.params.menuToOrder += item.dataValues.menu_name + ', ';
+          });
           return response;
         },
       },
@@ -331,6 +384,7 @@ export const orderTableResource: ResourceWithOptions = {
       'app_status',
       'is_void',
       'phone',
+      'menuToOrder',
     ],
     filterProperties: [
       'id',

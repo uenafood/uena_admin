@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Menu } from '../../db/entity/menu.entity.js';
-import { Badge } from "@adminjs/design-system";
+import { Badge } from '@adminjs/design-system';
 
 const MenuTableItem = ({ record }) => {
-
-  let menuSpec = record?.params
+  let menuSpec = record?.params;
   let menuSpecKeys: string[] = Object.keys(menuSpec);
   let menuComponents: string[] = [];
 
@@ -16,19 +14,13 @@ const MenuTableItem = ({ record }) => {
 
   return (
     <ul>
-      {
-        menuComponents.map(
-          (comp) => {
-            return comp ?
-            (
-              <li style={{padding: 8, margin: 5}}>
-                <Badge>{comp}</Badge>
-              </li>
-            ) :
-            null
-          }
-        )
-      }
+      {menuComponents.map((comp) => {
+        return comp ? (
+          <li style={{ padding: 8, margin: 5 }}>
+            <Badge>{comp}</Badge>
+          </li>
+        ) : null;
+      })}
     </ul>
   );
 };

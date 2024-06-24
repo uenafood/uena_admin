@@ -4,7 +4,9 @@ const componentLoader = new ComponentLoader();
 
 const Components = {
   menuTableItem: componentLoader.add('MenuTableItem', './components/MenuTableItem'),
-  menuGroup: componentLoader.add('MenuGroup', './components/MenuGroupItem'),
+  phone: componentLoader.add('Phone', './components/Phone'),
+  menuToOrder: componentLoader.add('MenuToOrder', './components/MenuToOrder'),
+  Void: componentLoader.add('Void', './components/Void'),
 };
 
 export { componentLoader, Components };

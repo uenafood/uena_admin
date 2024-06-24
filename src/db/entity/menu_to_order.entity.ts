@@ -2,6 +2,8 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequ
 
 import { sequelizeUENA } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
+import { OrderTable } from './order.entity.js';
+import { MenuTable } from './menu.entity.js';
 
 export class MenuToOrderTable extends Model<
   InferAttributes<MenuToOrderTable>,
@@ -55,7 +57,14 @@ export function setupMenuToOrderTable() {
   );
 }
 
-export function wiringMenuToOrderTableRelations() {}
+export function wiringMenuToOrderTableRelations() {
+  MenuToOrderTable.belongsTo(OrderTable, {
+    foreignKey: 'order_id',
+  });
+  MenuToOrderTable.belongsTo(MenuTable, {
+    foreignKey: 'menu_id',
+  });
+}
 
 export const menuToOrderTableResource: ResourceWithOptions = {
   resource: MenuToOrderTable,
