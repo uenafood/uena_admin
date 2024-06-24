@@ -1,4 +1,4 @@
-import { Model, DataTypes, Optional, InferAttributes, InferCreationAttributes } from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 
 import { sequelizeUser } from '../config.js';
 import { RecordActionResponse, ResourceWithOptions } from 'adminjs';
@@ -39,7 +39,7 @@ export function setupUserTable() {
 
 export function wiringUserTableRelations() {}
 
-export const userResource: ResourceWithOptions = {
+export const userTableResource: ResourceWithOptions = {
   resource: User,
   options: {
     id: 'user',
