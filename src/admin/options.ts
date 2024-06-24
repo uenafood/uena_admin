@@ -1,6 +1,6 @@
 import { AdminJSOptions } from 'adminjs';
 
-import { sequelizeMenu, sequelizeOrder, sequelizeOutlet, sequelizeUENA, sequelizeUser } from '../db/config.js';
+import { sequelizeMenu, sequelizeOrder, sequelizeOutlet, sequelizeUENA } from '../db/config.js';
 import { userTableResource } from '../db/entity/user.entity.js';
 
 import { componentLoader } from './component-loader.js';
@@ -12,6 +12,12 @@ import { customerTableResource } from '../db/entity/customer.entity.js';
 import { voidReasonTableResource } from '../db/entity/void_reason.entity.js';
 import { customerAddressTableResource } from '../db/entity/customer_address.entity.js';
 import { driverTableResource } from '../db/entity/driver.entity.js';
+import { menuToOrderTableResource } from '../db/entity/menu_to_order.entity.js';
+import { menuTableResource } from '../db/entity/menu.entity.js';
+import { menuCategoryTableResource } from '../db/entity/menu_category.entity.js';
+import { menuGroupResource } from '../db/entity/menu_group.entity.js';
+import { menuOutletTableResource } from '../db/entity/menu_outlet.entity.js';
+import { menuGroupOutletResource } from '../db/entity/menu_group_outlet.entity.js';
 
 const options: AdminJSOptions = {
   componentLoader,
@@ -26,6 +32,12 @@ const options: AdminJSOptions = {
     customerAddressTableResource,
     voidReasonTableResource,
     driverTableResource,
+    menuTableResource,
+    menuCategoryTableResource,
+    menuOutletTableResource,
+    menuGroupResource,
+    menuGroupOutletResource,
+    menuToOrderTableResource,
   ],
   // locale: {
   //   language: 'en',
@@ -64,7 +76,7 @@ const options: AdminJSOptions = {
   //     },
   //   },
   // },
-  databases: [sequelizeOrder, sequelizeUser, sequelizeOutlet, sequelizeUENA, sequelizeMenu],
+  databases: [sequelizeOrder, sequelizeOutlet, sequelizeUENA, sequelizeMenu],
 };
 
 export default options;

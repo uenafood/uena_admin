@@ -1,9 +1,11 @@
 import { Model, DataTypes, CreationOptional, InferAttributes, InferCreationAttributes } from 'sequelize';
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
-import { parentMenu } from '../../admin/constants.js';
 
-export class MenuCategory extends Model<InferAttributes<MenuCategory>, InferCreationAttributes<MenuCategory>> {
+export class MenuCategoryTable extends Model<
+  InferAttributes<MenuCategoryTable>,
+  InferCreationAttributes<MenuCategoryTable>
+> {
   declare menu_category_id: CreationOptional<number>;
   declare name: string;
   declare create_date: Date;
@@ -17,7 +19,7 @@ export class MenuCategory extends Model<InferAttributes<MenuCategory>, InferCrea
 }
 
 export function setupMenuCategoryTable() {
-  MenuCategory.init(
+  MenuCategoryTable.init(
     {
       menu_category_id: {
         type: DataTypes.INTEGER,
@@ -72,11 +74,11 @@ export function setupMenuCategoryTable() {
 
 export function wiringMenuCategory() {}
 
-export const menuCategoryResource: ResourceWithOptions = {
-  resource: MenuCategory,
+export const menuCategoryTableResource: ResourceWithOptions = {
+  resource: MenuCategoryTable,
   options: {
     id: 'menu_category',
-    parent: parentMenu,
+    parent: 'Menu',
     properties: {
       name: {
         type: 'string',

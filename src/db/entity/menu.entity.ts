@@ -2,11 +2,10 @@ import { DataTypes, InferAttributes, InferCreationAttributes, Model, json } from
 
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
-import { parentMenu } from '../../admin/constants.js';
-import { MenuCategory } from './menu_category.entity.js';
+import { MenuCategoryTable } from './menu_category.entity.js';
 import { Components } from '../../admin/component-loader.js';
 
-export class Menu extends Model<InferAttributes<Menu>, InferCreationAttributes<Menu>> {
+export class MenuTable extends Model<InferAttributes<MenuTable>, InferCreationAttributes<MenuTable>> {
   declare menu_id: number;
   declare menu_name: string;
   declare kitchen_name: string;
@@ -36,7 +35,7 @@ export class Menu extends Model<InferAttributes<Menu>, InferCreationAttributes<M
 }
 
 export function setupMenuTable() {
-  Menu.init(
+  MenuTable.init(
     {
       menu_id: {
         type: DataTypes.INTEGER,
@@ -160,11 +159,11 @@ export function setupMenuTable() {
   );
 }
 
-export const menuResource: ResourceWithOptions = {
-  resource: Menu,
+export const menuTableResource: ResourceWithOptions = {
+  resource: MenuTable,
   options: {
     id: 'menu',
-    parent: parentMenu,
+    parent: 'Menu',
     properties: {
       menu_name: {
         type: 'string',
@@ -192,7 +191,7 @@ export const menuResource: ResourceWithOptions = {
 };
 
 export function wiringMenuTableRelations() {
-  Menu.belongsTo(MenuCategory, {
+  MenuTable.belongsTo(MenuCategoryTable, {
     foreignKey: 'menu_category_id',
     targetKey: 'menu_category_id',
     as: 'menuCategoryId',

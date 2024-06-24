@@ -9,8 +9,7 @@ import {
 } from 'sequelize';
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
-import { parentMenu } from '../../admin/constants.js';
-import { MenuGroup } from './menu_group.entity.js';
+import { MenuGroupTable } from './menu_group.entity.js';
 
 export class MenuGroupOutlet extends Model<InferAttributes<MenuGroupOutlet>, InferCreationAttributes<MenuGroupOutlet>> {
   declare menu_group_outlet_id: CreationOptional<number>;
@@ -24,10 +23,10 @@ export class MenuGroupOutlet extends Model<InferAttributes<MenuGroupOutlet>, Inf
   declare modified_by: string;
   declare deleted_at: Date | null; // nullable
 
-  declare menuGroup: NonAttribute<MenuGroup>;
+  declare menuGroup: NonAttribute<MenuGroupTable>;
 
   declare static associations: {
-    menuGroup: Association<MenuGroupOutlet, MenuGroup>;
+    menuGroup: Association<MenuGroupOutlet, MenuGroupTable>;
   };
 }
 
@@ -86,7 +85,7 @@ export function setupMenuGroupOutletTable() {
 }
 
 export function wiringMenuGroupOutletTableRelations() {
-  MenuGroupOutlet.belongsTo(MenuGroup, {
+  MenuGroupOutlet.belongsTo(MenuGroupTable, {
     foreignKey: 'menu_group_id',
     targetKey: 'menu_group_id',
     as: 'menuGroup',
@@ -97,7 +96,7 @@ export const menuGroupOutletResource: ResourceWithOptions = {
   resource: MenuGroupOutlet,
   options: {
     id: 'menu_group_outlet',
-    parent: parentMenu,
+    parent: 'Menu',
     properties: {
       // listProperties: [],
     },

@@ -1,6 +1,6 @@
 import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 
-import { sequelizeUser } from '../config.js';
+import { sequelizeUENA } from '../config.js';
 import { RecordActionResponse, ResourceWithOptions } from 'adminjs';
 import { hashPassword } from '../../admin/utils.js';
 
@@ -28,8 +28,8 @@ export function setupUserTable() {
       },
     },
     {
-      sequelize: sequelizeUser,
-      tableName: 'user',
+      sequelize: sequelizeUENA,
+      tableName: 'user_admin_js',
       modelName: 'User',
       updatedAt: false,
       createdAt: false,
@@ -42,9 +42,9 @@ export function wiringUserTableRelations() {}
 export const userTableResource: ResourceWithOptions = {
   resource: User,
   options: {
-    id: 'user',
+    id: 'user_admin_js',
     parent: {
-      name: 'DB Coolify STAGING',
+      name: 'User',
       icon: 'User',
     },
     properties: {

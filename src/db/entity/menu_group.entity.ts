@@ -1,9 +1,8 @@
 import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
-import { parentMenu } from '../../admin/constants.js';
 
-export class MenuGroup extends Model<InferAttributes<MenuGroup>, InferCreationAttributes<MenuGroup>> {
+export class MenuGroupTable extends Model<InferAttributes<MenuGroupTable>, InferCreationAttributes<MenuGroupTable>> {
   declare menu_group_id: CreationOptional<number>;
   declare name: string;
   declare thumbnail: string;
@@ -16,7 +15,7 @@ export class MenuGroup extends Model<InferAttributes<MenuGroup>, InferCreationAt
 }
 
 export function setupMenuGroupTable() {
-  MenuGroup.init(
+  MenuGroupTable.init(
     {
       menu_group_id: {
         type: DataTypes.INTEGER,
@@ -68,10 +67,10 @@ export function setupMenuGroupTable() {
 export function wiringMenuGroupTableRelations() {}
 
 export const menuGroupResource: ResourceWithOptions = {
-  resource: MenuGroup,
+  resource: MenuGroupTable,
   options: {
     id: 'menu_group',
-    parent: parentMenu,
+    parent: 'Menu',
     properties: {
       name: {
         type: 'string',

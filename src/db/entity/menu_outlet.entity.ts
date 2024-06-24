@@ -10,9 +10,8 @@ import {
 
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
-import { parentMenu } from '../../admin/constants.js';
 import { MenuGroupOutlet } from './menu_group_outlet.entity.js';
-import { Menu } from './menu.entity.js';
+import { MenuTable } from './menu.entity.js';
 import { Components } from '../../admin/component-loader.js';
 
 export class MenuOutlet extends Model<InferAttributes<MenuOutlet>, InferCreationAttributes<MenuOutlet>> {
@@ -149,18 +148,18 @@ export function wiringMenuOutletTableRelations() {
     targetKey: 'menu_group_outlet_id',
     as: 'menuGroupOutlet',
   });
-  MenuOutlet.belongsTo(Menu, {
+  MenuOutlet.belongsTo(MenuTable, {
     foreignKey: 'menu_id',
     targetKey: 'menu_id',
     as: 'menuId',
   });
 }
 
-export const menuOutletResource: ResourceWithOptions = {
+export const menuOutletTableResource: ResourceWithOptions = {
   resource: MenuOutlet,
   options: {
     id: 'menu_outlet',
-    parent: parentMenu,
+    parent: 'Menu',
     properties: {
       menuGroup: {
         type: 'string',

@@ -10,13 +10,13 @@ import { setupMenuOutletTable, wiringMenuOutletTableRelations } from './entity/m
 import { setupMenuGroupOutletTable, wiringMenuGroupOutletTableRelations } from './entity/menu_group_outlet.entity.js';
 import { setupMenuTable, wiringMenuTableRelations } from './entity/menu.entity.js';
 import { setupPaymentMethod } from './entity/payment_method.entity.js';
-// import { setupOrderProdTable, wiringOrderProdTableRelations } from './entity/order-prod.entity';
 import { setupOrderTable, wiringOrderTableRelations } from './entity/order.entity.js';
 import { setupDeliveryMethodTable } from './entity/delivery_method.entity.js';
 import { setupCustomerTable } from './entity/customer.entity.js';
 import { setupVoidReasonTable } from './entity/void_reason.entity.js';
 import { setupCustomerAddressTable } from './entity/customer_address.entity.js';
 import { setupDriverTable } from './entity/driver.entity.js';
+import { setupMenuToOrderTable } from './entity/menu_to_order.entity.js';
 
 AdminJS.registerAdapter({
   Database,
@@ -35,7 +35,12 @@ function setupTables() {
   setupVoidReasonTable();
   setupCustomerAddressTable();
   setupDriverTable();
-
+  setupMenuTable();
+  setupMenuCategoryTable();
+  setupMenuToOrderTable();
+  setupMenuGroupTable();
+  setupMenuOutletTable();
+  setupMenuGroupOutletTable();
   setupOutletTable();
 }
 
@@ -45,6 +50,9 @@ function setupTables() {
 function wiringAllTables() {
   wiringOutletTableRelations();
   wiringOrderTableRelations();
+  wiringMenuTableRelations();
+  wiringMenuOutletTableRelations();
+  wiringMenuGroupOutletTableRelations();
 }
 
 const initialize = async () => {

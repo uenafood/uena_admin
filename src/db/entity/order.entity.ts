@@ -1,6 +1,6 @@
 import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import { sequelizeUENA } from '../config.js';
-import { ActionRequest, ListActionResponse, ResourceWithOptions } from 'adminjs';
+import { ActionRequest, ActionResponse, ListActionResponse, RecordActionResponse, ResourceWithOptions } from 'adminjs';
 import { OutletTable } from './outlet-prod.entity.js';
 import { PaymentMethodTable } from './payment_method.entity.js';
 import { DeliveryMethodTable } from './delivery_method.entity.js';
@@ -9,6 +9,7 @@ import { VoidReasonTable } from './void_reason.entity.js';
 import { CustomerAddressTable } from './customer_address.entity.js';
 import { DriverTable } from './driver.entity.js';
 import { Components } from '../../admin/component-loader.js';
+import { MenuToOrderTable } from './menu_to_order.entity.js';
 
 /**
  * BASED ON db_order.order_new
@@ -261,6 +262,11 @@ export function wiringOrderTableRelations() {
     targetKey: 'driver_id',
     as: 'driver',
   });
+  OrderTable.hasMany(MenuToOrderTable, {
+    foreignKey: 'order_id',
+    sourceKey: 'order_id',
+    as: 'menuToOrder',
+  });
 }
 
 export const orderTableResource: ResourceWithOptions = {
@@ -283,9 +289,6 @@ export const orderTableResource: ResourceWithOptions = {
 
     // disable create, edit, delete
     actions: {
-      /**
-       * TODO: search by phone
-       */
       list: {
         // customer phone
         after: async (response: ListActionResponse) => {
@@ -296,10 +299,15 @@ export const orderTableResource: ResourceWithOptions = {
         },
       },
       search: {
-        // handle search phone
-        before: async (request: ActionRequest) => {
-          request.query = {};
-          return request;
+        /**
+         * TODO: Custom search by phone
+         */
+        // before: async (request: ActionRequest) => {},
+      },
+      show: {
+        after: async (response: RecordActionResponse) => {
+          response.record.params.phone = response.record.populated?.customer_id?.params.phone_number;
+          return response;
         },
       },
       new: {
