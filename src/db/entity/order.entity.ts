@@ -395,7 +395,7 @@ export const orderTableResource: ResourceWithOptions = {
       'payment_method',
       'outlet_id',
       'customer_name_platform',
-      'phone',
+      // 'phone',
     ],
   },
 };
