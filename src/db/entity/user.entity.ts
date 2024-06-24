@@ -47,6 +47,7 @@ export const userTableResource: ResourceWithOptions = {
       name: 'User',
       icon: 'User',
     },
+
     properties: {
       password: {
         type: 'string',
@@ -60,6 +61,7 @@ export const userTableResource: ResourceWithOptions = {
     },
     actions: {
       new: {
+        isVisible: false,
         before: async (request) => {
           if (request.payload?.password) {
             request.payload.password = await hashPassword(request.payload.password);
@@ -68,6 +70,7 @@ export const userTableResource: ResourceWithOptions = {
         },
       },
       show: {
+        isVisible: true,
         after: async (response: RecordActionResponse) => {
           const user = await User.findByPk(response.record.params.id);
           if (user) {
@@ -78,6 +81,7 @@ export const userTableResource: ResourceWithOptions = {
         },
       },
       edit: {
+        isVisible: false,
         before: async (request) => {
           if (request.payload?.password) {
             request.payload.password = await hashPassword(request.payload.password);
@@ -94,6 +98,9 @@ export const userTableResource: ResourceWithOptions = {
             },
           },
         }),
+      },
+      delete: {
+        isVisible: false,
       },
     },
   },
