@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Badge } from '@adminjs/design-system';
+import { RecordActionResponse } from 'adminjs';
 
-const MenuTableItem = ({ record }) => {
+const MenuTableItem = (props: RecordActionResponse) => {
+  const { record } = props;
   let menuSpec = record?.params;
   let menuSpecKeys: string[] = Object.keys(menuSpec);
   let menuComponents: string[] = [];
