@@ -301,9 +301,6 @@ export const orderTableResource: ResourceWithOptions = {
       },
       phone: {
         type: 'string',
-        // components: {
-        //   list: Components.phone,
-        // },
       },
       is_void: {
         type: 'boolean',
@@ -315,6 +312,58 @@ export const orderTableResource: ResourceWithOptions = {
         type: 'string',
         components: {
           list: Components.menuToOrder,
+        },
+      },
+      delivery_method: {
+        type: 'reference',
+        components: {
+          filter: Components.MultiSelect,
+        },
+        custom: {
+          labelText: 'Delivery Method',
+          /**
+           * TODO: take from db delivery_method
+           */
+          availableValues: [
+            {
+              value: '1',
+              label: 'Pick up',
+            },
+            {
+              value: '2',
+              label: 'Diantar oleh Driver',
+            },
+            {
+              value: '3',
+              label: 'GrabFood',
+            },
+            {
+              value: '4',
+              label: 'GoFood',
+            },
+            {
+              value: '5',
+              label: 'ShopeeFood',
+            },
+            {
+              value: '6',
+              label: 'Take Away',
+            },
+            {
+              value: '7',
+              label: 'Dine In',
+            },
+          ],
+        },
+      },
+      voucher_code: {
+        type: 'string',
+        custom: {
+          variant: 'primary',
+        },
+        components: {
+          list: Components.SingleBadge,
+          show: Components.SingleBadge,
         },
       },
     },
@@ -347,7 +396,13 @@ export const orderTableResource: ResourceWithOptions = {
         /**
          * TODO: Custom search by phone
          */
-        // before: async (request: ActionRequest) => {},
+        // before: async (request: ActionRequest) => {
+        //   // delete [filters.phone]
+        //   const newQuery = { ...request.query };
+        //   delete newQuery['filters.phone'];
+        //   request.query = newQuery;
+        //   return request;
+        // },
       },
       show: {
         after: async (response: RecordActionResponse) => {
@@ -393,6 +448,7 @@ export const orderTableResource: ResourceWithOptions = {
       'is_void',
       'phone',
       'menuToOrder',
+      'voucher_code',
     ],
     filterProperties: [
       'id',
@@ -403,7 +459,11 @@ export const orderTableResource: ResourceWithOptions = {
       'payment_method',
       'outlet_id',
       'customer_name_platform',
-      // 'phone',
+      'phone',
+      /**
+       * TODO: filter dropdown voucher_code
+       */
+      'voucher_code',
     ],
   },
 };

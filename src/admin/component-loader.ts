@@ -7,6 +7,8 @@ const Components = {
   phone: componentLoader.add('Phone', './components/Phone'),
   menuToOrder: componentLoader.add('MenuToOrder', './components/MenuToOrder'),
   Void: componentLoader.add('Void', './components/Void'),
+  MultiSelect: componentLoader.add('MultiSelect', './components/MultiSelect'),
+  SingleBadge: componentLoader.add('SingleBadge', './components/SingleBadge'),
 };
 
 export { componentLoader, Components };
