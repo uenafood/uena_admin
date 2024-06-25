@@ -357,8 +357,16 @@ export const orderTableResource: ResourceWithOptions = {
             },
           });
           response.record.params.phone = response.record.populated?.customer_id?.params.phone_number;
+          response.record.params.menuToOrder = '';
           result.forEach((item) => {
-            response.record.params.menuToOrder += item.dataValues.menu_name + ', ';
+            console.log('item', item.dataValues.menu_name);
+            if (
+              item.dataValues.menu_name !== 'undefined' ||
+              item.dataValues.menu_name !== null ||
+              item.dataValues.menu_name !== ''
+            ) {
+              response.record.params.menuToOrder += item.dataValues.menu_name + ', ';
+            }
           });
           return response;
         },
