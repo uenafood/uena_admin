@@ -1,7 +1,17 @@
 section[data-css="order-list-table-wrapper"] {
   overflow-x: scroll !important;
+  padding: 12px;
+}
+
+section[data-css="order-list"] {
+  padding-right: 14px;
+  padding-left: 14px;
 }
 
 section[data-css="sidebar"] {
   width: 230px !important;
+}
+
+section[data-css="order-list-order_id"] {
+  min-width: 58px !important;
 }

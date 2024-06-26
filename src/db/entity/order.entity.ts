@@ -366,6 +366,16 @@ export const orderTableResource: ResourceWithOptions = {
           show: Components.SingleBadge,
         },
       },
+      // total_payment: {
+      //   type: 'number',
+      //   custom: {
+      //     variant: 'success',
+      //   },
+      //   components: {
+      //     list: Components.SingleBadge,
+      //     show: Components.SingleBadge,
+      //   },
+      // },
       cook_time: {
         type: 'string',
         components: {
@@ -385,6 +395,16 @@ export const orderTableResource: ResourceWithOptions = {
         },
         custom: {
           type: 'delivery',
+        },
+      },
+      completed_time: {
+        type: 'string',
+        components: {
+          list: Components.DiffTime,
+          show: Components.DiffTime,
+        },
+        custom: {
+          type: 'completed',
         },
       },
     },
@@ -462,10 +482,6 @@ export const orderTableResource: ResourceWithOptions = {
     listProperties: [
       'id',
       'order_date',
-      'cook_time',
-      'delivery_time',
-      'received_by_customer_date',
-      // 'finish_cooking_date',
       'delivery_method',
       'payment_method',
       'outlet_id',
@@ -477,6 +493,11 @@ export const orderTableResource: ResourceWithOptions = {
       'phone',
       'menuToOrder',
       'voucher_code',
+      'total_payment',
+      'cook_time',
+      'delivery_time',
+      'received_by_customer_date',
+      'finish_cooking_date',
     ],
     filterProperties: [
       'id',
