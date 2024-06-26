@@ -8,7 +8,7 @@ import {
   NonAttribute,
 } from 'sequelize';
 import { sequelizeUENA } from '../config.js';
-import { ListActionResponse, RecordActionResponse, ResourceWithOptions } from 'adminjs';
+import { ActionRequest, ListActionResponse, RecordActionResponse, ResourceWithOptions } from 'adminjs';
 import { OutletTable } from './outlet-prod.entity.js';
 import { PaymentMethodTable } from './payment_method.entity.js';
 import { DeliveryMethodTable } from './delivery_method.entity.js';
@@ -382,29 +382,31 @@ export const orderTableResource: ResourceWithOptions = {
           list: Components.DiffTime,
           show: Components.DiffTime,
         },
-        // '1' represents value that - with
         custom: {
           type: 'cook',
+          label: 'Cook Time',
         },
       },
       delivery_time: {
         type: 'string',
         components: {
           list: Components.DiffTime,
-          // show: Components.DiffTime,
+          show: Components.DiffTime,
         },
         custom: {
           type: 'delivery',
+          label: 'Delivery Time',
         },
       },
       completion_time: {
         type: 'string',
         components: {
           list: Components.DiffTime,
-          // show: Components.DiffTime,
+          show: Components.DiffTime,
         },
         custom: {
           type: 'completion',
+          label: 'Completion Time',
         },
       },
     },
@@ -434,15 +436,14 @@ export const orderTableResource: ResourceWithOptions = {
         },
       },
       search: {
-        // /**
-        //  * TODO: Custom search by phone
-        //  */
+        /**
+         * TODO: Custom search by phone
+         */
         // before: async (request: ActionRequest) => {
-        //   // delete [filters.phone]
         //   const newQuery = {
-        //     ['filters.customer_name_platform']: 'test',
+        //     ['filters.phone']: 'test',
         //   };
-        //   // delete newQuery['filters.phone'];
+        //   delete newQuery['filters.phone'];
         //   request.query = newQuery;
         //   return request;
         // },
@@ -510,9 +511,6 @@ export const orderTableResource: ResourceWithOptions = {
       'outlet_id',
       'customer_name_platform',
       // 'phone',
-      /**
-       * TODO: filter dropdown voucher_code
-       */
       'voucher_code',
     ],
   },

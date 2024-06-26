@@ -4,6 +4,9 @@ import moment from 'moment';
 
 const DiffTime = (props: RecordActionResponse) => {
   const type = props?.property?.custom?.type || 'time';
+  const label = props?.property?.custom?.label || 'label';
+  const place = props?.where || 'list';
+
   let diffTime;
 
   const finishCookingDate = moment(props?.record?.params?.finish_cooking_date).format('YYYY-MM-DD HH:mm:ss');
@@ -36,7 +39,33 @@ const DiffTime = (props: RecordActionResponse) => {
       diffTime = `${moment(receivedCustomerDate).diff(moment(orderDate), 'minutes')} menit`;
     }
   }
-  return <p>{diffTime}</p>;
+
+  return (
+    <>
+      {place === 'list' ? (
+        <p>{diffTime}</p>
+      ) : (
+        <>
+          <p
+            style={{
+              display: 'block',
+              fontFamily: 'Roboto, sans-serif',
+              fontSize: '12px',
+              lineHeight: '16px',
+              color: 'rgb(137, 138, 154)',
+              marginBottom: '4px',
+              fontWeight: '300',
+            }}
+          >
+            {label}
+          </p>
+          <p>{diffTime}</p>
+          <br />
+          <br />
+        </>
+      )}
+    </>
+  );
 };
 
 export default DiffTime;
