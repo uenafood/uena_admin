@@ -496,6 +496,7 @@ export const orderTableResource: ResourceWithOptions = {
       'voucher_code',
       'total_payment',
       'cook_time',
+      'driver_id',
       'delivery_time',
       'completion_time',
       'received_by_customer_date',
@@ -512,6 +513,7 @@ export const orderTableResource: ResourceWithOptions = {
       'customer_name_platform',
       // 'phone',
       'voucher_code',
+      'driver_id',
     ],
   },
 };

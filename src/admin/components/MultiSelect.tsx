@@ -4,7 +4,7 @@ import { FilterPropertyProps, RecordActionResponse } from 'adminjs';
 import { Select } from '@adminjs/design-system';
 
 const MultiSelect = (props: FilterPropertyProps) => {
-  const [value, setValue] = useState([{ value: '', label: '' }]);
+  const [value, setValue] = useState([]);
   const options = [...props.property.custom['availableValues']];
 
   const labelText =
@@ -18,6 +18,7 @@ const MultiSelect = (props: FilterPropertyProps) => {
       },
     ],
   ) => {
+    // @ts-ignore
     setValue(selected);
     /**
      * TODO: Remove %5B0%5D from the key
