@@ -59,6 +59,12 @@ const options: AdminJSOptions = {
   assets: {
     styles: ['/styles.css'],
   },
+  branding: {
+    companyName: 'UENA Admin',
+    logo: '/logouena.svg',
+    withMadeWithLove: false,
+    favicon: '/favicon.ico',
+  },
 };
 
 export default options;
