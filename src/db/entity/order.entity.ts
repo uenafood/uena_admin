@@ -391,20 +391,20 @@ export const orderTableResource: ResourceWithOptions = {
         type: 'string',
         components: {
           list: Components.DiffTime,
-          show: Components.DiffTime,
+          // show: Components.DiffTime,
         },
         custom: {
           type: 'delivery',
         },
       },
-      completed_time: {
+      completion_time: {
         type: 'string',
         components: {
           list: Components.DiffTime,
-          show: Components.DiffTime,
+          // show: Components.DiffTime,
         },
         custom: {
-          type: 'completed',
+          type: 'completion',
         },
       },
     },
@@ -496,6 +496,7 @@ export const orderTableResource: ResourceWithOptions = {
       'total_payment',
       'cook_time',
       'delivery_time',
+      'completion_time',
       'received_by_customer_date',
       'finish_cooking_date',
     ],
