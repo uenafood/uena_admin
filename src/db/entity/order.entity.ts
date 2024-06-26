@@ -429,25 +429,12 @@ export const orderTableResource: ResourceWithOptions = {
             menuResult.forEach((item) => {
               record.params.menuToOrder += item.dataValues.menu_name + ', ';
             });
-            record.params.phone = record.populated?.customer_id?.params.phone_number;
           });
           await Promise.all(promises);
           return response;
         },
       },
-      search: {
-        /**
-         * TODO: Custom search by phone
-         */
-        // before: async (request: ActionRequest) => {
-        //   const newQuery = {
-        //     ['filters.phone']: 'test',
-        //   };
-        //   delete newQuery['filters.phone'];
-        //   request.query = newQuery;
-        //   return request;
-        // },
-      },
+      search: {},
       show: {
         after: async (response: RecordActionResponse) => {
           const result = await MenuToOrderTable.findAll({
@@ -455,7 +442,6 @@ export const orderTableResource: ResourceWithOptions = {
               order_id: response?.record?.params?.id,
             },
           });
-          response.record.params.phone = response.record.populated?.customer_id?.params.phone_number;
           response.record.params.menuToOrder = '';
           result.forEach((item) => {
             console.log('item', item.dataValues.menu_name);
@@ -486,6 +472,7 @@ export const orderTableResource: ResourceWithOptions = {
       'delivery_method',
       'payment_method',
       'outlet_id',
+      'customer_id',
       'customer_name_platform',
       'order_id',
       'app_status',
@@ -502,16 +489,17 @@ export const orderTableResource: ResourceWithOptions = {
       'received_by_customer_date',
       'finish_cooking_date',
     ],
+    showProperties: [],
     filterProperties: [
       'id',
       'order_id',
       'order_date',
+      'customer_id',
       'is_void',
       'delivery_method',
       'payment_method',
       'outlet_id',
       'customer_name_platform',
-      // 'phone',
       'voucher_code',
       'driver_id',
     ],

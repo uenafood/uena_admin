@@ -2,6 +2,7 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequ
 
 import { sequelizeUENA } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
+import { OrderTable } from './order.entity.js';
 
 export class CustomerTable extends Model<InferAttributes<CustomerTable>, InferCreationAttributes<CustomerTable>> {
   declare customer_id: number;
@@ -43,7 +44,11 @@ export function setupCustomerTable() {
   );
 }
 
-export function wiringCustomerRelations() {}
+export function wiringCustomerRelations() {
+  CustomerTable.hasMany(OrderTable, {
+    foreignKey: 'customer_id',
+  });
+}
 
 export const customerTableResource: ResourceWithOptions = {
   resource: CustomerTable,
@@ -51,7 +56,15 @@ export const customerTableResource: ResourceWithOptions = {
     id: 'customer',
     parent: 'Order',
     properties: {
+      /**
+       * in some case, we need unset isTitle to false
+       * trick to ignore name as title
+       * reference https://github.com/SoftwareBrothers/adminjs/issues/420
+       * */
       name: {
+        isTitle: false,
+      },
+      phone_number: {
         type: 'string',
         isTitle: true,
       },

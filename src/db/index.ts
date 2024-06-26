@@ -12,7 +12,7 @@ import { setupMenuTable, wiringMenuTableRelations } from './entity/menu.entity.j
 import { setupPaymentMethod } from './entity/payment_method.entity.js';
 import { setupOrderTable, wiringOrderTableRelations } from './entity/order.entity.js';
 import { setupDeliveryMethodTable } from './entity/delivery_method.entity.js';
-import { setupCustomerTable } from './entity/customer.entity.js';
+import { setupCustomerTable, wiringCustomerRelations } from './entity/customer.entity.js';
 import { setupVoidReasonTable } from './entity/void_reason.entity.js';
 import { setupCustomerAddressTable } from './entity/customer_address.entity.js';
 import { setupDriverTable } from './entity/driver.entity.js';
