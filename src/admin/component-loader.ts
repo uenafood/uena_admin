@@ -9,6 +9,7 @@ const Components = {
   Void: componentLoader.add('Void', './components/Void'),
   MultiSelect: componentLoader.add('MultiSelect', './components/MultiSelect'),
   SingleBadge: componentLoader.add('SingleBadge', './components/SingleBadge'),
+  DiffTime: componentLoader.add('DiffTime', './components/DiffTime'),
 };
 
 export { componentLoader, Components };

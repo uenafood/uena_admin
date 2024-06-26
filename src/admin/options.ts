@@ -77,6 +77,9 @@ const options: AdminJSOptions = {
   //   },
   // },
   databases: [sequelizeOrder, sequelizeOutlet, sequelizeUENA, sequelizeMenu],
+  assets: {
+    styles: ['/styles.css'],
+  },
 };
 
 export default options;
