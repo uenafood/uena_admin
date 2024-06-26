@@ -8,7 +8,7 @@ import {
   NonAttribute,
 } from 'sequelize';
 import { sequelizeUENA } from '../config.js';
-import { ActionRequest, ActionResponse, ListActionResponse, RecordActionResponse, ResourceWithOptions } from 'adminjs';
+import { ListActionResponse, RecordActionResponse, ResourceWithOptions } from 'adminjs';
 import { OutletTable } from './outlet-prod.entity.js';
 import { PaymentMethodTable } from './payment_method.entity.js';
 import { DeliveryMethodTable } from './delivery_method.entity.js';

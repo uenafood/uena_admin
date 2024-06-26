@@ -4,7 +4,7 @@ import { sequelizeMenu, sequelizeOrder, sequelizeOutlet, sequelizeUENA } from '.
 import { userTableResource } from '../db/entity/user.entity.js';
 
 import { componentLoader } from './component-loader.js';
-import { orderTableResource } from '../db/entity/order.entity.js';
+import { OrderTable, orderTableResource } from '../db/entity/order.entity.js';
 import { outletTableResource } from '../db/entity/outlet-prod.entity.js';
 import { paymentMethodTableResource } from '../db/entity/payment_method.entity.js';
 import { deliveryMethodTableResource } from '../db/entity/delivery_method.entity.js';
@@ -39,43 +39,21 @@ const options: AdminJSOptions = {
     menuGroupOutletResource,
     menuToOrderTableResource,
   ],
-  // locale: {
-  //   language: 'en',
-  //   translations: {
-  //     resources: {
-  //       orderTableResource: {
-  //         properties: {
-  //           customer_name_platform: 'Customer',
-  //         },
-  //       },
-  //       Order: {
-  //         properties: {
-  //           customer_name_platform: 'Customer',
-  //         },
-  //       },
-  //       order: {
-  //         properties: {
-  //           customer_name_platform: 'Customer',
-  //         },
-  //       },
-  //       orderTable: {
-  //         properties: {
-  //           customer_name_platform: 'Customer',
-  //         },
-  //       },
-  //       OrderTable: {
-  //         properties: {
-  //           customer_name_platform: 'Customer',
-  //         },
-  //       },
-  //       order_new: {
-  //         properties: {
-  //           customer_name_platform: 'Customer',
-  //         },
-  //       },
-  //     },
-  //   },
-  // },
+  locale: {
+    language: 'en',
+    availableLanguages: ['en'],
+    translations: {
+      en: {
+        properties: {
+          delivery_method: 'Delivery',
+          payment_method: 'Payment',
+          customer_name_platform: 'CU Name',
+          voucher_code: 'Voucher',
+          received_by_customer_date: 'Received by CU Date',
+        },
+      },
+    },
+  },
   databases: [sequelizeOrder, sequelizeOutlet, sequelizeUENA, sequelizeMenu],
   assets: {
     styles: ['/styles.css'],

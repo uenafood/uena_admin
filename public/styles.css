@@ -9,9 +9,17 @@ section[data-css="order-list"] {
 }
 
 section[data-css="sidebar"] {
-  width: 230px !important;
+  width: 180px !important;
+}
+
+section[data-css="sidebar"] .adminjs_Box {
+  padding: 12px;
 }
 
 section[data-css="order-list-order_id"] {
   min-width: 58px !important;
+}
+
+section[data-css="order-list-delivery_method"] {
+  min-width: 67px !important;
 }
