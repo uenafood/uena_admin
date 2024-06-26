@@ -1,0 +1,7 @@
+section[data-css="order-list-table-wrapper"] {
+  overflow-x: scroll !important;
+}
+
+section[data-css="sidebar"] {
+  width: 230px !important;
+}
