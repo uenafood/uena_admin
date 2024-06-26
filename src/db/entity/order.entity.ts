@@ -366,6 +366,27 @@ export const orderTableResource: ResourceWithOptions = {
           show: Components.SingleBadge,
         },
       },
+      cook_time: {
+        type: 'string',
+        components: {
+          list: Components.DiffTime,
+          show: Components.DiffTime,
+        },
+        // '1' represents value that - with
+        custom: {
+          type: 'cook',
+        },
+      },
+      delivery_time: {
+        type: 'string',
+        components: {
+          list: Components.DiffTime,
+          show: Components.DiffTime,
+        },
+        custom: {
+          type: 'delivery',
+        },
+      },
     },
     sort: {
       sortBy: 'order_date',
@@ -393,13 +414,15 @@ export const orderTableResource: ResourceWithOptions = {
         },
       },
       search: {
-        /**
-         * TODO: Custom search by phone
-         */
+        // /**
+        //  * TODO: Custom search by phone
+        //  */
         // before: async (request: ActionRequest) => {
         //   // delete [filters.phone]
-        //   const newQuery = { ...request.query };
-        //   delete newQuery['filters.phone'];
+        //   const newQuery = {
+        //     ['filters.customer_name_platform']: 'test',
+        //   };
+        //   // delete newQuery['filters.phone'];
         //   request.query = newQuery;
         //   return request;
         // },
@@ -439,12 +462,17 @@ export const orderTableResource: ResourceWithOptions = {
     listProperties: [
       'id',
       'order_date',
+      'cook_time',
+      'delivery_time',
+      'received_by_customer_date',
+      // 'finish_cooking_date',
       'delivery_method',
       'payment_method',
       'outlet_id',
       'customer_name_platform',
       'order_id',
       'app_status',
+      'order_notes',
       'is_void',
       'phone',
       'menuToOrder',
@@ -459,7 +487,7 @@ export const orderTableResource: ResourceWithOptions = {
       'payment_method',
       'outlet_id',
       'customer_name_platform',
-      'phone',
+      // 'phone',
       /**
        * TODO: filter dropdown voucher_code
        */

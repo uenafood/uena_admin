@@ -9,33 +9,33 @@ DotEnv.config();
 const sequelize = new Sequelize('postgres', 'postgres', process.env.DATABASE_PASSWORD, {
   host: process.env.DATABASE_HOST,
   dialect: 'postgres',
-  logging: false,
+  logging: true,
 });
 
 const sequelizeMenu = new Sequelize('db_menu', 'postgres', process.env.DATABASE_PASSWORD, {
   host: process.env.DATABASE_HOST,
   dialect: 'postgres',
-  logging: false,
+  logging: true,
 });
 
 const sequelizeUENA = new Sequelize('db_uena', 'postgres', process.env.DATABASE_PASSWORD, {
   host: process.env.DATABASE_HOST,
   // port: Number(''),
   dialect: 'postgres',
-  logging: false,
+  logging: true,
 });
 
 const sequelizeOrder = new Sequelize('db_order', 'postgres', process.env.DATABASE_PASSWORD, {
   host: process.env.DATABASE_HOST,
   dialect: 'postgres',
-  logging: false,
+  logging: true,
 });
 
 const sequelizeOutlet = new Sequelize('db_outlet', 'postgres', process.env.DATABASE_PASSWORD, {
   host: process.env.DATABASE_HOST,
   // port: Number(''),
   dialect: 'postgres',
-  logging: false,
+  logging: true,
 });
 
 export { sequelize, sequelizeMenu, sequelizeUENA, sequelizeOutlet, sequelizeOrder };

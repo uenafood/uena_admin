@@ -4,17 +4,21 @@ import { FilterPropertyProps, RecordActionResponse } from 'adminjs';
 import { Select } from '@adminjs/design-system';
 
 const MultiSelect = (props: FilterPropertyProps) => {
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState([{ value: '', label: '' }]);
   const options = [...props.property.custom['availableValues']];
 
   const labelText =
     props.property.custom['labelText'] !== undefined ? props.property.custom['labelText'] : props?.property?.path;
 
-  const onChange = (selected) => {
+  const onChange = (
+    selected: [
+      {
+        value: string;
+        label: string;
+      },
+    ],
+  ) => {
     setValue(selected);
-    console.log('props.onChange', props.onChange);
-    console.log('record', props.record);
-    console.log('property', props.property);
     /**
      * TODO: Remove %5B0%5D from the key
      */
