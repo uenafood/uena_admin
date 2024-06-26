@@ -26,9 +26,12 @@ const DiffTime = (props: RecordActionResponse) => {
       diffTime = `${moment(receivedCustomerDate).diff(moment(finishCookingDate), 'minutes')} menit`;
     }
   } else if (type === 'completion') {
-    if (receivedCustomerDate === 'Invalid date') {
+    if (finishCookingDate === 'Invalid date') {
       // kitchen not yet finish cooking
       diffTime = 'Belum selesai memasak';
+    } else if (receivedCustomerDate === 'Invalid date') {
+      // driver not yet deliver
+      diffTime = 'Belum diterima customer';
     } else {
       diffTime = `${moment(receivedCustomerDate).diff(moment(orderDate), 'minutes')} menit`;
     }
