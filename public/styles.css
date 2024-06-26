@@ -20,6 +20,10 @@ section[data-css="order-list-order_id"] {
   min-width: 58px !important;
 }
 
-section[data-css="order-list-delivery_method"] {
-  min-width: 67px !important;
+section[data-css="order-list-outlet_id"],
+section[data-css="order-list-customer_name_platform"],
+section[data-css="order-list-payment_method"],
+section[data-css="order-list-delivery_method"],
+section[data-css="order-list-phone"] {
+  min-width: 70px !important;
 }
