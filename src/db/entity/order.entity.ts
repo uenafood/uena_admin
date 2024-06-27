@@ -312,6 +312,10 @@ export const orderTableResource: ResourceWithOptions = {
         type: 'string',
         components: {
           list: Components.menuToOrder,
+          show: Components.menuToOrder,
+        },
+        custom: {
+          label: 'Menu To Order',
         },
       },
       delivery_method: {
@@ -360,22 +364,13 @@ export const orderTableResource: ResourceWithOptions = {
         type: 'string',
         custom: {
           variant: 'primary',
+          label: 'Voucher',
         },
         components: {
           list: Components.SingleBadge,
           show: Components.SingleBadge,
         },
       },
-      // total_payment: {
-      //   type: 'number',
-      //   custom: {
-      //     variant: 'success',
-      //   },
-      //   components: {
-      //     list: Components.SingleBadge,
-      //     show: Components.SingleBadge,
-      //   },
-      // },
       cook_time: {
         type: 'string',
         components: {
@@ -427,7 +422,7 @@ export const orderTableResource: ResourceWithOptions = {
             });
             record.params.menuToOrder = '';
             menuResult.forEach((item) => {
-              record.params.menuToOrder += item.dataValues.menu_name + ', ';
+              record.params.menuToOrder += item.dataValues.quantity + 'x ' + item?.dataValues?.menu_name + ', ';
             });
           });
           await Promise.all(promises);
@@ -444,14 +439,7 @@ export const orderTableResource: ResourceWithOptions = {
           });
           response.record.params.menuToOrder = '';
           result.forEach((item) => {
-            console.log('item', item.dataValues.menu_name);
-            if (
-              item.dataValues.menu_name !== 'undefined' ||
-              item.dataValues.menu_name !== null ||
-              item.dataValues.menu_name !== ''
-            ) {
-              response.record.params.menuToOrder += item.dataValues.menu_name + ', ';
-            }
+            response.record.params.menuToOrder += item.dataValues.quantity + 'x ' + item?.dataValues?.menu_name + ', ';
           });
           return response;
         },
@@ -506,6 +494,7 @@ export const orderTableResource: ResourceWithOptions = {
       'voucher_code',
       'order_notes',
       'driver_id',
+      'menuToOrder',
       'ref_code',
       'customer_address_id',
       'is_already_paid',

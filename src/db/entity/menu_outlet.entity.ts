@@ -167,7 +167,7 @@ export const menuOutletTableResource: ResourceWithOptions = {
          * TODO: CUSTOM COMPONENT for show menugroup
          */
         components: {
-          list: Components.menuTableItem, // see "Writing your own Components"
+          // list: Components.menuTableItem, // see "Writing your own Components"
           // show: Components.MyCustomAction,
         },
       },
