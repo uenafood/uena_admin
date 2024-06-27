@@ -10,6 +10,7 @@ import {
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
 import { MenuGroupTable } from './menu_group.entity.js';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class MenuGroupOutlet extends Model<InferAttributes<MenuGroupOutlet>, InferCreationAttributes<MenuGroupOutlet>> {
   declare menu_group_outlet_id: CreationOptional<number>;
@@ -94,6 +95,7 @@ export function wiringMenuGroupOutletTableRelations() {
 
 export const menuGroupOutletResource: ResourceWithOptions = {
   resource: MenuGroupOutlet,
+  features: [disableAllActions()],
   options: {
     id: 'menu_group_outlet',
     parent: 'Menu',

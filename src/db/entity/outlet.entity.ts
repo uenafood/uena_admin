@@ -2,6 +2,7 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import { sequelizeOutlet } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
 import { parentOutlet } from '../../admin/constants.js';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class OutletTable extends Model<InferAttributes<OutletTable>, InferCreationAttributes<OutletTable>> {
   declare id: CreationOptional<number>;
@@ -205,6 +206,7 @@ export function wiringOutletTableRelations() {}
 
 export const outletTableResource: ResourceWithOptions = {
   resource: OutletTable,
+  features: [disableAllActions()],
   options: {
     id: 'outlet',
     parent: parentOutlet,

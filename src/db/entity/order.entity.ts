@@ -9,7 +9,7 @@ import {
 } from 'sequelize';
 import { sequelizeUENA } from '../config.js';
 import { ActionRequest, ListActionResponse, RecordActionResponse, ResourceWithOptions } from 'adminjs';
-import { OutletTable } from './outlet-prod.entity.js';
+import { OutletTable } from './outlet.entity.js';
 import { PaymentMethodTable } from './payment_method.entity.js';
 import { DeliveryMethodTable } from './delivery_method.entity.js';
 import { CustomerTable } from './customer.entity.js';
@@ -19,6 +19,7 @@ import { DriverTable } from './driver.entity.js';
 import { Components } from '../../admin/component-loader.js';
 import { MenuToOrderTable } from './menu_to_order.entity.js';
 import { MenuTable } from './menu.entity.js';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 /**
  * BASED ON db_uena.order
@@ -291,6 +292,7 @@ export function wiringOrderTableRelations() {
 
 export const orderTableResource: ResourceWithOptions = {
   resource: OrderTable,
+  features: [disableAllActions()],
   options: {
     id: 'order',
     parent: 'Order',
@@ -443,15 +445,6 @@ export const orderTableResource: ResourceWithOptions = {
           });
           return response;
         },
-      },
-      new: {
-        isAccessible: false,
-      },
-      edit: {
-        isAccessible: false,
-      },
-      delete: {
-        isAccessible: false,
       },
     },
     listProperties: [

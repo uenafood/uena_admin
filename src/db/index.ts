@@ -3,7 +3,7 @@ import AdminJS from 'adminjs';
 
 import { sequelize } from './config.js';
 import { setupUserTable } from './entity/user.entity.js';
-import { setupOutletTable, wiringOutletTableRelations } from './entity/outlet-prod.entity.js';
+import { setupOutletTable, wiringOutletTableRelations } from './entity/outlet.entity.js';
 import { setupMenuCategoryTable } from './entity/menu_category.entity.js';
 import { setupMenuGroupTable, wiringMenuGroupTableRelations } from './entity/menu_group.entity.js';
 import { setupMenuOutletTable, wiringMenuOutletTableRelations } from './entity/menu_outlet.entity.js';

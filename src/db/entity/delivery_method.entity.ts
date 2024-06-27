@@ -1,6 +1,7 @@
 import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import { sequelizeUENA } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class DeliveryMethodTable extends Model<
   InferAttributes<DeliveryMethodTable>,
@@ -49,6 +50,7 @@ export function wiringDeliveryMethodRelations() {}
 
 export const deliveryMethodTableResource: ResourceWithOptions = {
   resource: DeliveryMethodTable,
+  features: [disableAllActions()],
   options: {
     id: 'delivery_method',
     parent: 'Order',

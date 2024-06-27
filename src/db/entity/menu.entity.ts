@@ -4,6 +4,7 @@ import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
 import { MenuCategoryTable } from './menu_category.entity.js';
 import { Components } from '../../admin/component-loader.js';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class MenuTable extends Model<InferAttributes<MenuTable>, InferCreationAttributes<MenuTable>> {
   declare menu_id: number;
@@ -161,6 +162,7 @@ export function setupMenuTable() {
 
 export const menuTableResource: ResourceWithOptions = {
   resource: MenuTable,
+  features: [disableAllActions()],
   options: {
     id: 'menu',
     parent: 'Menu',
@@ -171,9 +173,7 @@ export const menuTableResource: ResourceWithOptions = {
       },
       components: {
         type: 'string',
-        components: {
-          // list: Components.menuTableItem,
-        },
+        components: {},
       },
     },
 

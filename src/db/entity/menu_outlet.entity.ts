@@ -13,6 +13,7 @@ import { ResourceWithOptions } from 'adminjs';
 import { MenuGroupOutlet } from './menu_group_outlet.entity.js';
 import { MenuTable } from './menu.entity.js';
 import { Components } from '../../admin/component-loader.js';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class MenuOutlet extends Model<InferAttributes<MenuOutlet>, InferCreationAttributes<MenuOutlet>> {
   declare menu_outlet_id: CreationOptional<number>;
@@ -157,6 +158,7 @@ export function wiringMenuOutletTableRelations() {
 
 export const menuOutletTableResource: ResourceWithOptions = {
   resource: MenuOutlet,
+  features: [disableAllActions()],
   options: {
     id: 'menu_outlet',
     parent: 'Menu',

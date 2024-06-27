@@ -3,6 +3,7 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequ
 import { sequelizeUENA } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
 import { OrderTable } from './order.entity.js';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class CustomerTable extends Model<InferAttributes<CustomerTable>, InferCreationAttributes<CustomerTable>> {
   declare customer_id: number;
@@ -52,6 +53,7 @@ export function wiringCustomerRelations() {
 
 export const customerTableResource: ResourceWithOptions = {
   resource: CustomerTable,
+  features: [disableAllActions()],
   options: {
     id: 'customer',
     parent: 'Order',

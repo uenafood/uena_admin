@@ -4,6 +4,7 @@ import { sequelizeUENA } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
 import { OrderTable } from './order.entity.js';
 import { MenuTable } from './menu.entity.js';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class MenuToOrderTable extends Model<
   InferAttributes<MenuToOrderTable>,
@@ -68,6 +69,7 @@ export function wiringMenuToOrderTableRelations() {
 
 export const menuToOrderTableResource: ResourceWithOptions = {
   resource: MenuToOrderTable,
+  features: [disableAllActions()],
   options: {
     id: 'menu_to_order',
     parent: 'Menu',

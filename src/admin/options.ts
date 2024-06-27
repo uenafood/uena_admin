@@ -5,7 +5,7 @@ import { userTableResource } from '../db/entity/user.entity.js';
 
 import { componentLoader } from './component-loader.js';
 import { OrderTable, orderTableResource } from '../db/entity/order.entity.js';
-import { outletTableResource } from '../db/entity/outlet-prod.entity.js';
+import { outletTableResource } from '../db/entity/outlet.entity.js';
 import { paymentMethodTableResource } from '../db/entity/payment_method.entity.js';
 import { deliveryMethodTableResource } from '../db/entity/delivery_method.entity.js';
 import { customerTableResource } from '../db/entity/customer.entity.js';

@@ -2,6 +2,7 @@ import { Model, DataTypes, Optional, InferAttributes, InferCreationAttributes } 
 
 import { sequelizeUENA } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class PaymentMethodTable extends Model<
   InferAttributes<PaymentMethodTable>,
@@ -46,6 +47,7 @@ export function wiringPaymentMethodRelations() {}
 
 export const paymentMethodTableResource: ResourceWithOptions = {
   resource: PaymentMethodTable,
+  features: [disableAllActions()],
   options: {
     id: 'payment_method',
     parent: 'Order',

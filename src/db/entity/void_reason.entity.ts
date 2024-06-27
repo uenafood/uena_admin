@@ -1,6 +1,7 @@
 import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import { sequelizeUENA } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class VoidReasonTable extends Model<InferAttributes<VoidReasonTable>, InferCreationAttributes<VoidReasonTable>> {
   declare id: CreationOptional<number>;
@@ -34,6 +35,7 @@ export function wiringVoidReasonTableRelations() {}
 
 export const voidReasonTableResource: ResourceWithOptions = {
   resource: VoidReasonTable,
+  features: [disableAllActions()],
   options: {
     id: 'void_reason_category',
     parent: 'Order',

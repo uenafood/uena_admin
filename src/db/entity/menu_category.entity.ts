@@ -1,6 +1,7 @@
 import { Model, DataTypes, CreationOptional, InferAttributes, InferCreationAttributes } from 'sequelize';
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class MenuCategoryTable extends Model<
   InferAttributes<MenuCategoryTable>,
@@ -76,6 +77,7 @@ export function wiringMenuCategory() {}
 
 export const menuCategoryTableResource: ResourceWithOptions = {
   resource: MenuCategoryTable,
+  features: [disableAllActions()],
   options: {
     id: 'menu_category',
     parent: 'Menu',

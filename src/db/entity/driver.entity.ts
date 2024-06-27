@@ -2,6 +2,7 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequ
 
 import { sequelizeUENA } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
+import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class DriverTable extends Model<InferAttributes<DriverTable>, InferCreationAttributes<DriverTable>> {
   declare driver_id: string;
@@ -55,11 +56,10 @@ export function wiringDriverTableRelations() {}
 
 export const driverTableResource: ResourceWithOptions = {
   resource: DriverTable,
+  features: [disableAllActions()],
   options: {
     id: 'driver',
     parent: 'Order',
-    // hide the resource from the sidebar
-
     properties: {
       name: {
         type: 'string',
