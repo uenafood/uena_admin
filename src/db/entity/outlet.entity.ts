@@ -206,14 +206,27 @@ export function wiringOutletTableRelations() {}
 
 export const outletTableResource: ResourceWithOptions = {
   resource: OutletTable,
-  features: [disableAllActions()],
+  // features: [disableAllActions()],
   options: {
     id: 'outlet',
     parent: parentOutlet,
     properties: {
       name: {
+        isTitle: false,
+      },
+      full_name: {
         type: 'string',
         isTitle: true,
+      },
+    },
+    editProperties: ['is_temporary_closed'],
+    listProperties: ['id', 'full_name', 'address_detail', 'opening_hour', 'closing_hour', 'is_temporary_closed'],
+    actions: {
+      new: {
+        isAccessible: false,
+      },
+      delete: {
+        isAccessible: false,
       },
     },
   },

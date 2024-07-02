@@ -32,7 +32,7 @@ const sequelizeOrder = new Sequelize('db_order', 'postgres', process.env.DATABAS
 });
 
 const sequelizeOutlet = new Sequelize('db_outlet', 'postgres', process.env.DATABASE_PASSWORD, {
-  host: process.env.DATABASE_HOST,
+  host: process.env.DATABASE_HOST_WRITE,
   // port: Number(''),
   dialect: 'postgres',
   logging: true,
