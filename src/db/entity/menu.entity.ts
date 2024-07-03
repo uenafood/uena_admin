@@ -162,7 +162,7 @@ export function setupMenuTable() {
 
 export const menuTableResource: ResourceWithOptions = {
   resource: MenuTable,
-  features: [disableAllActions()],
+  // features: [disableAllActions()],
   options: {
     id: 'menu',
     parent: 'Menu',

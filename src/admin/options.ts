@@ -3,9 +3,9 @@ import { AdminJSOptions } from 'adminjs';
 import { sequelizeMenu, sequelizeOrder, sequelizeOutlet, sequelizeUENA } from '../db/config.js';
 import { userTableResource } from '../db/entity/user.entity.js';
 
-import { componentLoader } from './component-loader.js';
+import { Components, componentLoader } from './component-loader.js';
 import { OrderTable, orderTableResource } from '../db/entity/order.entity.js';
-import { outletTableResource } from '../db/entity/outlet.entity.js';
+import { OutletTable, outletTableResource } from '../db/entity/outlet.entity.js';
 import { paymentMethodTableResource } from '../db/entity/payment_method.entity.js';
 import { deliveryMethodTableResource } from '../db/entity/delivery_method.entity.js';
 import { customerTableResource } from '../db/entity/customer.entity.js';
@@ -13,9 +13,9 @@ import { voidReasonTableResource } from '../db/entity/void_reason.entity.js';
 import { customerAddressTableResource } from '../db/entity/customer_address.entity.js';
 import { driverTableResource } from '../db/entity/driver.entity.js';
 import { menuToOrderTableResource } from '../db/entity/menu_to_order.entity.js';
-import { menuTableResource } from '../db/entity/menu.entity.js';
+import { MenuTable, menuTableResource } from '../db/entity/menu.entity.js';
 import { menuCategoryTableResource } from '../db/entity/menu_category.entity.js';
-import { menuGroupResource } from '../db/entity/menu_group.entity.js';
+import { MenuGroupTable, menuGroupResource } from '../db/entity/menu_group.entity.js';
 import { menuOutletTableResource } from '../db/entity/menu_outlet.entity.js';
 import { menuGroupOutletResource } from '../db/entity/menu_group_outlet.entity.js';
 
@@ -39,6 +39,24 @@ const options: AdminJSOptions = {
     menuGroupOutletResource,
     menuToOrderTableResource,
   ],
+  pages: {
+    assignMenuToOutlet: {
+      handler: async (request, response, context) => {
+        // get menu
+        const menu = await MenuTable.findAll();
+        const outlet = await OutletTable.findAll();
+        const menuGroup = await MenuGroupTable.findAll();
+
+        return {
+          menu,
+          outlet,
+          menuGroup,
+        };
+      },
+      component: Components.AssignMenuPages,
+      icon: 'ShoppingBag',
+    },
+  },
   locale: {
     language: 'en',
     availableLanguages: ['en'],

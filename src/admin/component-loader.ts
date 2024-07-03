@@ -9,6 +9,7 @@ const Components = {
   MultiSelect: componentLoader.add('MultiSelect', './components/MultiSelect'),
   SingleBadge: componentLoader.add('SingleBadge', './components/SingleBadge'),
   DiffTime: componentLoader.add('DiffTime', './components/DiffTime'),
+  AssignMenuPages: componentLoader.add('AssignMenuPages', './components/AssignMenuPages'),
 };
 
 export { componentLoader, Components };
