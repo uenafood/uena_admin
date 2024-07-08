@@ -12,6 +12,7 @@
     "@adminjs/design-system": "^4.1.1",
     "@adminjs/express": "^6.1.0",
     "@adminjs/sequelize": "^4.0.0",
+    "@aws-sdk/client-s3": "^3.609.0",
     "adminjs": "^7.7.2",
     "bcrypt": "^5.1.1",
     "connect-pg-simple": "^9.0.1",
