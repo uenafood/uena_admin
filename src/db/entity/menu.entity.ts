@@ -200,13 +200,6 @@ export const menuTableResource: ResourceWithOptions = {
         },
         isVisible: { list: true, show: true, edit: false, filter: false },
       },
-      upload_to_bucket: {
-        type: 'string',
-        isVisible: { list: false, show: false, edit: true, filter: false },
-        components: {
-          // edit: Components.UploadToBucket,
-        },
-      },
     },
 
     listProperties: [
