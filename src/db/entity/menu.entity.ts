@@ -178,7 +178,7 @@ export const menuTableResource: ResourceWithOptions = {
         const currentYear = new Date().getFullYear();
         return `menus/${currentMonth}${currentYear}/${Date.now()}-${filename}`;
       },
-      validation: { mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'] },
+      validation: { mimeTypes: ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'] },
       properties: {
         key: 'image_path',
       },
