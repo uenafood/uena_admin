@@ -3,8 +3,8 @@ import { DataTypes, InferAttributes, InferCreationAttributes, Model, json } from
 import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
 import { MenuCategoryTable } from './menu_category.entity.js';
-import { Components } from '../../admin/component-loader.js';
-import { disableAllActions } from '../../admin/features/disableAllActions.js';
+import { componentLoader, Components } from '../../admin/component-loader.js';
+import uploadFileFeature from '@adminjs/upload';
 
 export class MenuTable extends Model<InferAttributes<MenuTable>, InferCreationAttributes<MenuTable>> {
   declare menu_id: number;
@@ -162,7 +162,28 @@ export function setupMenuTable() {
 
 export const menuTableResource: ResourceWithOptions = {
   resource: MenuTable,
-  // features: [disableAllActions()],
+  features: [
+    uploadFileFeature({
+      componentLoader: componentLoader,
+      provider: {
+        aws: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+          region: 'ap-southeast-1',
+          bucket: process.env.AWS_BUCKET_NAME ?? '',
+        },
+      },
+      uploadPath: (record, filename) => {
+        const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
+        const currentYear = new Date().getFullYear();
+        return `menus/${currentMonth}${currentYear}/${Date.now()}-${filename}`;
+      },
+      validation: { mimeTypes: ['image/jpg', 'image/jpeg', 'image/png'] },
+      properties: {
+        key: 'image_path',
+      },
+    }),
+  ],
   options: {
     id: 'menu',
     parent: 'Menu',
@@ -171,9 +192,20 @@ export const menuTableResource: ResourceWithOptions = {
         type: 'string',
         isTitle: true,
       },
-      components: {
+      image_path: {
         type: 'string',
-        components: {},
+        components: {
+          list: Components.RenderImage,
+          show: Components.RenderImage,
+        },
+        isVisible: { list: true, show: true, edit: false, filter: false },
+      },
+      upload_to_bucket: {
+        type: 'string',
+        isVisible: { list: false, show: false, edit: true, filter: false },
+        components: {
+          // edit: Components.UploadToBucket,
+        },
       },
     },
 
@@ -182,6 +214,7 @@ export const menuTableResource: ResourceWithOptions = {
       'menu_name',
       'kitchen_name',
       'bill_name',
+      'image_path',
       'default_price',
       'menu_category_id',
       'description',
