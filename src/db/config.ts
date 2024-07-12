@@ -13,7 +13,7 @@ const sequelize = new Sequelize('postgres', 'postgres', process.env.DATABASE_PAS
 });
 
 const sequelizeMenu = new Sequelize('db_menu', 'postgres', process.env.DATABASE_PASSWORD, {
-  host: process.env.DATABASE_HOST,
+  host: process.env.DATABASE_HOST_WRITE,
   dialect: 'postgres',
   logging: true,
 });
