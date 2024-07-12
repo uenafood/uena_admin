@@ -198,6 +198,10 @@ export const menuTableResource: ResourceWithOptions = {
           list: Components.RenderImage,
           show: Components.RenderImage,
         },
+        custom: {
+          label: 'Image',
+        },
+        position: 3,
         isVisible: { list: true, show: true, edit: false, filter: false },
       },
     },
