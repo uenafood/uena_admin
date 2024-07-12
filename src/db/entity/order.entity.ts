@@ -431,7 +431,6 @@ export const orderTableResource: ResourceWithOptions = {
           return response;
         },
       },
-      search: {},
       show: {
         after: async (response: RecordActionResponse) => {
           const result = await MenuToOrderTable.findAll({
@@ -445,6 +444,24 @@ export const orderTableResource: ResourceWithOptions = {
           });
           return response;
         },
+      },
+      reprint_order: {
+        actionType: 'record',
+        icon: 'Printer',
+        component: false,
+        handler: async (request, response, context) => {
+          console.log('reprint_order context', context.record?.params.order_id);
+          const order_id = context.record?.params.order_id;
+          const res = await fetch(`${process.env.BASE_URL_REPRINT}${order_id}`);
+          const data = await res.json();
+          console.log('reprint_order data', data);
+          const { record } = context;
+          return {
+            record: record?.toJSON(),
+            msg: 'Hello world',
+          };
+        },
+        guard: 'Apakah anda yakin ingin mencetak ulang order ini?',
       },
     },
     listProperties: [
