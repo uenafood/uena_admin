@@ -81,7 +81,7 @@ const options: AdminJSOptions = {
         };
       },
       component: Components.EditMenuPages,
-      icon: 'Edit',
+      // icon: 'Edit',
     },
   },
   locale: {

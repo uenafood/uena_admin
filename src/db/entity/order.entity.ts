@@ -447,7 +447,7 @@ export const orderTableResource: ResourceWithOptions = {
       },
       reprint_order: {
         actionType: 'record',
-        icon: 'Printer',
+        // icon: 'Printer',
         component: false,
         handler: async (request, response, context) => {
           console.log('reprint_order context', context.record?.params.order_id);

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Label } from '@adminjs/design-system';
-import { FilterPropertyProps, RecordActionResponse } from 'adminjs';
+import { FilterPropertyProps } from 'adminjs';
 import { Select } from '@adminjs/design-system';
 
 const MultiSelect = (props: FilterPropertyProps) => {

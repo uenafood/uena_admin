@@ -5,10 +5,10 @@ export const DEFAULT_ADMIN = {
 
 export const parentMenu = {
   name: 'MENU',
-  icon: 'Menu',
+  // icon: 'Menu',
 };
 
 export const parentOutlet = {
   name: 'OUTLET',
-  icon: 'Outlet',
+  // icon: 'Outlet',
 };

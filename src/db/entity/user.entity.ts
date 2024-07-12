@@ -45,7 +45,7 @@ export const userTableResource: ResourceWithOptions = {
     id: 'user_admin_js',
     parent: {
       name: 'User',
-      icon: 'User',
+      // icon: 'User',
     },
 
     properties: {

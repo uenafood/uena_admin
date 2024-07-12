@@ -135,7 +135,7 @@ export default function EditMenuPages() {
               },
             },
           ]}
-          icon="AlertTriangle"
+          // icon="AlertTriangle"
           label="Warning"
           title="Konfirmasi hapus menu"
           variant="danger"
