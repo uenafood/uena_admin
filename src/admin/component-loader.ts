@@ -10,6 +10,7 @@ const Components = {
   SingleBadge: componentLoader.add('SingleBadge', './components/SingleBadge'),
   DiffTime: componentLoader.add('DiffTime', './components/DiffTime'),
   AssignMenuPages: componentLoader.add('AssignMenuPages', './components/AssignMenuPages'),
+  EditMenuPages: componentLoader.add('EditMenuPages', './components/EditMenuPages'),
   RenderImage: componentLoader.add('RenderImage', './components/RenderImage'),
 };
 

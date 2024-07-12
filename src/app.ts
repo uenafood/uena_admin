@@ -130,6 +130,25 @@ const start = async () => {
     }
   });
 
+  app.post('/admin/delete-menu', isAuthenticated, async (req: Request & { fields?: any }, res: Response) => {
+    console.log('req.fields', req.fields);
+    const { menu_outlet_id, menu_group_outlet_id, menu_id } = req.fields.selectedMenu;
+
+    try {
+      const deleteMenuOutlet = await MenuOutlet.destroy({
+        where: {
+          menu_id,
+          menu_group_outlet_id,
+          menu_outlet_id,
+        },
+      });
+      res.json({ message: 'Berhasil menghapus menu!', data: deleteMenuOutlet });
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: 'error' });
+    }
+  });
+
   app.listen(port, () => {
     console.log(`AdminJS available at http://localhost:${port}${admin.options.rootPath}`);
   });

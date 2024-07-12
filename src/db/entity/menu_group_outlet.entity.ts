@@ -89,7 +89,6 @@ export function wiringMenuGroupOutletTableRelations() {
   MenuGroupOutlet.belongsTo(MenuGroupTable, {
     foreignKey: 'menu_group_id',
     targetKey: 'menu_group_id',
-    as: 'menuGroup',
   });
 }
 

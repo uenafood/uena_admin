@@ -16,8 +16,8 @@ import { menuToOrderTableResource } from '../db/entity/menu_to_order.entity.js';
 import { MenuTable, menuTableResource } from '../db/entity/menu.entity.js';
 import { menuCategoryTableResource } from '../db/entity/menu_category.entity.js';
 import { MenuGroupTable, menuGroupResource } from '../db/entity/menu_group.entity.js';
-import { menuOutletTableResource } from '../db/entity/menu_outlet.entity.js';
-import { menuGroupOutletResource } from '../db/entity/menu_group_outlet.entity.js';
+import { MenuOutlet, menuOutletTableResource } from '../db/entity/menu_outlet.entity.js';
+import { MenuGroupOutlet, menuGroupOutletResource } from '../db/entity/menu_group_outlet.entity.js';
 
 const options: AdminJSOptions = {
   componentLoader,
@@ -56,6 +56,33 @@ const options: AdminJSOptions = {
       component: Components.AssignMenuPages,
       icon: 'ShoppingBag',
     },
+    editMenuToOutlet: {
+      handler: async (request, response, context) => {
+        const outlet = await OutletTable.findAll();
+        const menuOutlet = await MenuOutlet.findAll({
+          include: [
+            {
+              model: MenuGroupOutlet,
+              attributes: ['menu_group_id', 'menu_group_outlet_id', 'outlet_id'],
+              include: [
+                {
+                  model: MenuGroupTable,
+                  attributes: ['menu_group_id', 'name'],
+                },
+              ],
+            },
+          ],
+        });
+
+        return {
+          // menu,
+          outlet,
+          menuOutlet,
+        };
+      },
+      component: Components.EditMenuPages,
+      icon: 'Edit',
+    },
   },
   locale: {
     language: 'en',
@@ -68,7 +95,7 @@ const options: AdminJSOptions = {
           customer_name_platform: 'CU Name',
           voucher_code: 'Voucher',
           received_by_customer_date: 'Received by CU Date',
-          customer_id: 'Phone Number',
+          customer_id: 'Customer id',
         },
       },
     },

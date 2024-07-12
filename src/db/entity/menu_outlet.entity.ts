@@ -147,12 +147,10 @@ export function wiringMenuOutletTableRelations() {
   MenuOutlet.belongsTo(MenuGroupOutlet, {
     foreignKey: 'menu_group_outlet_id',
     targetKey: 'menu_group_outlet_id',
-    as: 'menuGroupOutlet',
   });
   MenuOutlet.belongsTo(MenuTable, {
     foreignKey: 'menu_id',
     targetKey: 'menu_id',
-    as: 'menuId',
   });
 }
 
