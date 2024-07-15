@@ -78,6 +78,9 @@ export const outletOperationalHourTableResource: ResourceWithOptions = {
       },
     },
     actions: {
+      new: {
+        isAccessible: false,
+      },
       list: {
         after: async (response: ListActionResponse) => {
           const promises = response.records.map(async (record) => {
