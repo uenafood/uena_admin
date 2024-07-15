@@ -18,6 +18,7 @@ import { menuCategoryTableResource } from '../db/entity/menu_category.entity.js'
 import { MenuGroupTable, menuGroupResource } from '../db/entity/menu_group.entity.js';
 import { MenuOutlet, menuOutletTableResource } from '../db/entity/menu_outlet.entity.js';
 import { MenuGroupOutlet, menuGroupOutletResource } from '../db/entity/menu_group_outlet.entity.js';
+import { outletOperationalHourTableResource } from '../db/entity/outlet_operational_hour.js';
 
 const options: AdminJSOptions = {
   componentLoader,
@@ -38,6 +39,7 @@ const options: AdminJSOptions = {
     menuGroupResource,
     menuGroupOutletResource,
     menuToOrderTableResource,
+    outletOperationalHourTableResource,
   ],
   pages: {
     assignMenuToOutlet: {
