@@ -486,6 +486,8 @@ export const orderTableResource: ResourceWithOptions = {
       'completion_time',
       'received_by_customer_date',
       'finish_cooking_date',
+      'nps_score',
+      'nps_feedback',
     ],
     showProperties: [
       'order_id',
