@@ -97,7 +97,7 @@ const options: AdminJSOptions = {
           customer_name_platform: 'CU Name',
           voucher_code: 'Voucher',
           received_by_customer_date: 'Received by CU Date',
-          customer_id: 'Customer id',
+          customer_id: 'Customer Phone',
         },
       },
     },
