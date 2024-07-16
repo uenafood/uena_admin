@@ -22,11 +22,11 @@ const start = async () => {
 
   const admin = new AdminJS(options);
 
-  if (process.env.NODE_ENV === 'production') {
-    await admin.initialize();
-  } else {
-    admin.watch();
-  }
+  // if (process.env.NODE_ENV === 'production') {
+  await admin.initialize();
+  // } else {
+  //   admin.watch();
+  // }
 
   const router = buildAuthenticatedRouter(
     admin,
