@@ -1,4 +1,4 @@
-import { ComponentLoader } from 'adminjs';
+import { ComponentLoader, Edit } from 'adminjs';
 
 const componentLoader = new ComponentLoader();
 
@@ -11,6 +11,7 @@ const Components = {
   DiffTime: componentLoader.add('DiffTime', './components/DiffTime'),
   AssignMenuPages: componentLoader.add('AssignMenuPages', './components/AssignMenuPages'),
   EditMenuPages: componentLoader.add('EditMenuPages', './components/EditMenuPages'),
+  EditMenuGroupPages: componentLoader.add('EditMenuGroupPages', './components/EditMenuGroupPages'),
   RenderImage: componentLoader.add('RenderImage', './components/RenderImage'),
 };
 

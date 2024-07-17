@@ -10,6 +10,7 @@ import * as url from 'url';
 import path from 'path';
 import { MenuGroupOutlet } from './db/entity/menu_group_outlet.entity.js';
 import { MenuOutlet } from './db/entity/menu_outlet.entity.js';
+import { sequelize } from './db/config.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -22,11 +23,11 @@ const start = async () => {
 
   const admin = new AdminJS(options);
 
-  // if (process.env.NODE_ENV === 'production') {
-  await admin.initialize();
-  // } else {
-  //   admin.watch();
-  // }
+  if (process.env.NODE_ENV === 'production') {
+    await admin.initialize();
+  } else {
+    admin.watch();
+  }
 
   const router = buildAuthenticatedRouter(
     admin,
@@ -143,6 +144,29 @@ const start = async () => {
         },
       });
       res.json({ message: 'Berhasil menghapus menu!', data: deleteMenuOutlet });
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: 'error' });
+    }
+  });
+
+  app.post('/admin/edit-menu-group', isAuthenticated, async (req: Request & { fields?: any }, res: Response) => {
+    console.log('req.fields', req.fields);
+    const { menu_group_outlet_id, menu_group_id, outlet_id, position, is_visible } = req.fields.data;
+
+    try {
+      // find
+      const findMenuGroupOutlet = await MenuGroupOutlet.findOne({
+        where: menu_group_outlet_id,
+      });
+
+      if (findMenuGroupOutlet) {
+        findMenuGroupOutlet.position = position;
+        findMenuGroupOutlet.is_visible = is_visible;
+        findMenuGroupOutlet.save();
+      }
+
+      res.json({ message: 'Berhasil mengubah menu group!', data: findMenuGroupOutlet });
     } catch (e) {
       console.log(e);
       res.status(500).json({ message: 'error' });

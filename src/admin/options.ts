@@ -85,6 +85,21 @@ const options: AdminJSOptions = {
       component: Components.EditMenuPages,
       // icon: 'Edit',
     },
+    editMenuGroupOutlet: {
+      handler: async (request, response, context) => {
+        const outlet = await OutletTable.findAll();
+        const menuGroup = await MenuGroupTable.findAll();
+        const menuGroupOutlet = await MenuGroupOutlet.findAll();
+
+        return {
+          outlet,
+          menuGroup,
+          menuGroupOutlet,
+        };
+      },
+      component: Components.EditMenuGroupPages,
+      // icon: 'Edit',
+    },
   },
   locale: {
     language: 'en',
