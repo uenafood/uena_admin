@@ -12,7 +12,6 @@ import { sequelizeMenu } from '../config.js';
 import { ResourceWithOptions } from 'adminjs';
 import { MenuGroupOutlet } from './menu_group_outlet.entity.js';
 import { MenuTable } from './menu.entity.js';
-import { Components } from '../../admin/component-loader.js';
 import { disableAllActions } from '../../admin/features/disableAllActions.js';
 
 export class MenuOutlet extends Model<InferAttributes<MenuOutlet>, InferCreationAttributes<MenuOutlet>> {

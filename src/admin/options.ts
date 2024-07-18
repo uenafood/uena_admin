@@ -86,9 +86,20 @@ const options: AdminJSOptions = {
     },
     soldOutMenu: {
       handler: async (request, response, context) => {
-        const outlet = await OutletTable.findAll();
-        const menu = await MenuTable.findAll();
+        const outlet = await OutletTable.findAll({
+          where: {
+            deleted_at: null,
+          },
+        });
+        const menu = await MenuTable.findAll({
+          where: {
+            deleted_at: null,
+          },
+        });
         const menuOutlet = await MenuOutlet.findAll({
+          where: {
+            deleted_at: null,
+          },
           include: [
             {
               model: MenuGroupOutlet,

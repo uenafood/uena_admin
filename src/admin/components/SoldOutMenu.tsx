@@ -107,11 +107,12 @@ export default function EditMenuPages() {
   const handleSubmit = async () => {
     setIsSubmit(true);
     await axios
-      .post(`/api/resources/menu_outlet/records/${soldOutMenu.menu_outlet_id}/edit`, {
+      .post(`/admin/sold-out-menu`, {
+        menu_outlet_id: soldOutMenu.menu_outlet_id,
         is_available: !soldOutMenu.is_available,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         SetSnackbarData({
           message: 'Berhasil mengubah status menu',
           isShow: true,

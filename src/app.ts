@@ -173,6 +173,28 @@ const start = async () => {
     }
   });
 
+  app.post('/admin/sold-out-menu', isAuthenticated, async (req: Request & { fields?: any }, res: Response) => {
+    console.log('req.fields', req.fields);
+    const { menu_outlet_id, is_available } = req.fields;
+
+    try {
+      // find
+      const findMenuOutlet = await MenuOutlet.findOne({
+        where: menu_outlet_id,
+      });
+
+      if (findMenuOutlet) {
+        findMenuOutlet.is_available = is_available;
+        findMenuOutlet.save();
+      }
+
+      res.json({ message: 'Berhasil mengubah menu!', data: findMenuOutlet });
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: 'error' });
+    }
+  });
+
   app.listen(port, () => {
     console.log(`AdminJS available at http://localhost:${port}${admin.options.rootPath}`);
   });

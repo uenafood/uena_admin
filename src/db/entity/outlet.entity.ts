@@ -9,7 +9,7 @@ export class OutletTable extends Model<InferAttributes<OutletTable>, InferCreati
   declare code: string;
   declare name: string;
   declare db_name: string;
-  declare deleted_at: Date;
+  declare deleted_at: Date | null;
   declare full_name: string;
   declare address: string;
   declare create_date: Date;
