@@ -56,7 +56,7 @@ const options: AdminJSOptions = {
         };
       },
       component: Components.AssignMenuPages,
-      icon: 'ShoppingBag',
+      icon: 'Plus',
     },
     editMenuToOutlet: {
       handler: async (request, response, context) => {
@@ -77,13 +77,40 @@ const options: AdminJSOptions = {
         });
 
         return {
-          // menu,
           outlet,
           menuOutlet,
         };
       },
       component: Components.EditMenuPages,
-      // icon: 'Edit',
+      icon: 'Edit',
+    },
+    soldOutMenu: {
+      handler: async (request, response, context) => {
+        const outlet = await OutletTable.findAll();
+        const menu = await MenuTable.findAll();
+        const menuOutlet = await MenuOutlet.findAll({
+          include: [
+            {
+              model: MenuGroupOutlet,
+              attributes: ['menu_group_id', 'menu_group_outlet_id', 'outlet_id'],
+              include: [
+                {
+                  model: MenuGroupTable,
+                  attributes: ['menu_group_id', 'name'],
+                },
+              ],
+            },
+          ],
+        });
+
+        return {
+          menu,
+          outlet,
+          menuOutlet,
+        };
+      },
+      component: Components.SoldOutMenu,
+      icon: 'XCircle',
     },
     editMenuGroupOutlet: {
       handler: async (request, response, context) => {

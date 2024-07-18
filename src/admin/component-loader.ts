@@ -13,6 +13,7 @@ const Components = {
   EditMenuPages: componentLoader.add('EditMenuPages', './components/EditMenuPages'),
   EditMenuGroupPages: componentLoader.add('EditMenuGroupPages', './components/EditMenuGroupPages'),
   RenderImage: componentLoader.add('RenderImage', './components/RenderImage'),
+  SoldOutMenu: componentLoader.add('SoldOutMenu', './components/SoldOutMenu'),
 };
 
 export { componentLoader, Components };
