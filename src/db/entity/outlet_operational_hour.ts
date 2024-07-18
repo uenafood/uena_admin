@@ -1,10 +1,9 @@
 import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import { sequelizeOutlet } from '../config.js';
 import { ListActionResponse, RecordActionResponse, ResourceWithOptions } from 'adminjs';
-import { parentOutlet } from '../../admin/constants.js';
-import { disableAllActions } from '../../admin/features/disableAllActions.js';
 import { OutletTable } from './outlet.entity.js';
 import { dayToNum, numToDay } from '../../admin/utils.js';
+import { Components } from '../../admin/component-loader.js';
 
 export class OutletOperationalHourTable extends Model<
   InferAttributes<OutletOperationalHourTable>,
@@ -67,17 +66,40 @@ export function wiringOutletOperationalHourTableRelations() {
 
 export const outletOperationalHourTableResource: ResourceWithOptions = {
   resource: OutletOperationalHourTable,
-  // features: [disableAllActions()],
   options: {
     id: 'outlet_operational_hour',
-    parent: parentOutlet,
+    parent: {
+      name: 'Outlet Operational Hours',
+      icon: 'Clock',
+    },
     properties: {
       day: {
         type: 'string',
         isDisabled: true,
+        components: {
+          filter: Components.MultiSelect,
+        },
+        custom: {
+          availableValues: [
+            { value: '0', label: 'Minggu' },
+            { value: '1', label: 'Senin' },
+            { value: '2', label: 'Selasa' },
+            { value: '3', label: 'Rabu' },
+            { value: '4', label: 'Kamis' },
+            { value: '5', label: "Jum'at" },
+            { value: '6', label: 'Sabtu' },
+          ],
+        },
+      },
+      outlet_id: {
+        type: 'reference',
+        isDisabled: true,
       },
     },
     actions: {
+      delete: {
+        isAccessible: false,
+      },
       new: {
         isAccessible: false,
       },

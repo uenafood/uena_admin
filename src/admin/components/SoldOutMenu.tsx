@@ -303,10 +303,6 @@ export default function EditMenuPages() {
                 <Icon icon="RefreshCw" />
                 Reset
               </Button>
-              <Button variant="contained">
-                <Icon icon="Search" />
-                Filter
-              </Button>
             </div>
             <section
               style={{
