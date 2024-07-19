@@ -132,7 +132,7 @@ export function setupMenuTable() {
         allowNull: true,
       },
       components: {
-        type: DataTypes.STRING,
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: true,
       },
       platform_fee: {
@@ -215,7 +215,6 @@ export const menuTableResource: ResourceWithOptions = {
       'default_price',
       'menu_category_id',
       'description',
-      'components',
     ],
   },
 };
