@@ -1,4 +1,4 @@
-import { ComponentLoader, Edit } from 'adminjs';
+import { ComponentLoader, Dashboard, Edit } from 'adminjs';
 
 const componentLoader = new ComponentLoader();
 
@@ -14,6 +14,7 @@ const Components = {
   EditMenuGroupPages: componentLoader.add('EditMenuGroupPages', './components/EditMenuGroupPages'),
   RenderImage: componentLoader.add('RenderImage', './components/RenderImage'),
   SoldOutMenu: componentLoader.add('SoldOutMenu', './components/SoldOutMenu'),
+  Dashboard: componentLoader.add('Dashboard', './components/Dashboard'),
 };
 
 export { componentLoader, Components };

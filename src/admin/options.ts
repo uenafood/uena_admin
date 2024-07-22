@@ -156,6 +156,9 @@ const options: AdminJSOptions = {
     },
   },
   databases: [sequelizeOrder, sequelizeOutlet, sequelizeUENA, sequelizeMenu],
+  dashboard: {
+    component: Components.Dashboard,
+  },
   assets: {
     styles: ['/styles.css'],
   },
