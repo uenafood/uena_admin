@@ -467,6 +467,7 @@ export const orderTableResource: ResourceWithOptions = {
     listProperties: [
       'id',
       'order_date',
+      'platform_id',
       'delivery_method',
       'payment_method',
       'outlet_id',
@@ -531,6 +532,7 @@ export const orderTableResource: ResourceWithOptions = {
     filterProperties: [
       'id',
       'order_id',
+      'platform_id',
       'order_date',
       'customer_id',
       'is_void',
